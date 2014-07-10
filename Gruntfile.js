@@ -1,11 +1,3 @@
-/*
- * grunt-sg-release
- * 
- *
- * Copyright (c) 2014 Ruy Adorno
- * Licensed under the MIT license.
- */
-
 'use strict';
 
 module.exports = function (grunt) {
@@ -69,3 +61,4 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['jshint', 'test']);
 
 };
+

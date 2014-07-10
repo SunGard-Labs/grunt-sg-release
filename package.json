@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "The SunGard standard release script for HTML5 projects.",
   "repository": "",
-  "author": "Ruy Adorno",
+  "author": "SunGard",
   "keywords": [
     "gruntplugin"
   ],
@@ -24,3 +24,4 @@
     "test": "grunt test"
   }
 }
+
