@@ -34,8 +34,9 @@ module.exports = function (grunt) {
       },
       custom_options: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!'
+          developBranch: 'develop',
+          masterBranch: 'master',
+          messagePrefix: 'Release '
         },
         files: {
           'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
