@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = function (grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+var gitHelper = require('./lib/helpers/git');
+var messages = require('./lib/messages');
+
+module.exports = function (grunt) {
 
   grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
@@ -13,6 +14,8 @@ module.exports = function (grunt) {
       masterBranch: 'master',
       messagePrefix: 'Release '
     });
+
+    gitHelper.check(grunt);
 
   });
 
