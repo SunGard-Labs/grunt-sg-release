@@ -23,24 +23,26 @@ module.exports = function (grunt) {
       tests: ['tmp']
     },
 
+    mkdir: {
+      tests: {
+        options: {
+          create: ['tmp']
+        }
+      }
+    },
+
+    setup_test_folder: {
+      tests: {
+        folder: 'tmp'
+      }
+    },
+
     // Configuration to be run (and then tested).
     sg_release: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          developBranch: 'develop',
-          masterBranch: 'master',
-          messagePrefix: 'Release '
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+      tests: {
+        developBranch: 'develop',
+        masterBranch: 'master',
+        messagePrefix: 'Release '
       }
     },
 
@@ -53,10 +55,9 @@ module.exports = function (grunt) {
 
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
+  grunt.loadTasks('test/tasks');
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'sg_release', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'mkdir', 'setup_test_folder', 'sg_release', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

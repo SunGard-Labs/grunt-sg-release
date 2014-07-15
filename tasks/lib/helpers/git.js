@@ -20,6 +20,8 @@ function check(grunt) {
 
   if (!testForExec()) {
     grunt.fatal(messages.noGitError);
+  } else {
+    grunt.log.debug('Git command found!');
   }
 
 }
