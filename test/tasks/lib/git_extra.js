@@ -3,30 +3,93 @@
 
 var exec = require('child_process').exec;
 
-function gitInit(grunt, dir, done) {
 
-  grunt.log.debug('Using test dir: ' + dir);
+function _exec(command, info) {
+
+  info.grunt.log.debug('Using test dir: ' + info.dir);
 
   var options = {
-    cwd: dir
+    cwd: info.dir
   };
 
-  exec('git init', options, function (err, stdout, stderr) {
+  exec(command, options, function (err, stdout, stderr) {
 
-    grunt.log.debug(stdout);
+    info.grunt.log.debug(stdout);
 
     if (err) {
-      grunt.log.debug(stderr);
-      grunt.fatal('Could not init the test repository');
+      info.grunt.log.debug(stderr);
+      info.grunt.fatal('Could not run the command: ' + command);
     }
 
-    done();
-
+    info.done();
   });
 
 }
 
+
+// ---
+
+
+function gitInit(grunt, dir, done) {
+
+  _exec('git init', {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
+function gitCheckoutDevelop(grunt, dir, done){
+
+  _exec('git checkout -b develop', {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
+function gitCommit(msg, grunt, dir, done){
+
+  _exec('git commit -m \'' + msg + '\'', {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
+function gitAdd(filename, grunt, dir, done){
+
+  _exec('git add ' + filename, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
-  init: gitInit
+  init: gitInit,
+  checkoutDevelop: gitCheckoutDevelop,
+  commit: gitCommit,
+  add: gitAdd
 };
 
