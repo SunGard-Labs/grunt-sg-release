@@ -2,6 +2,7 @@
 
 
 var gitHelper = require('./lib/helpers/git');
+var dependenciesHelper = require('./lib/helpers/dependencies');
 var messages = require('./lib/messages');
 
 module.exports = function (grunt) {
@@ -15,7 +16,20 @@ module.exports = function (grunt) {
       messagePrefix: 'Release '
     });
 
-    gitHelper.check(grunt);
+    var done = this.async();
+
+    function checkNpmInstall() {
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'npm', checkBowerInstall);
+    }
+
+    function checkBowerInstall() {
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', done);
+    }
+
+    (function start() {
+      gitHelper.check(grunt);
+      checkNpmInstall();
+    })();
 
   });
 
