@@ -19,6 +19,8 @@ module.exports = function (grunt) {
     var tmpDir = path.resolve(options.folder);
 
     var done = this.async();
+    var depContent = '{"name":"foo", "version":"0.0.1"}';
+
 
     function createReadmeFile() {
       grunt.file.write(tmpDir + '/README.md', 'Hello world');
@@ -39,7 +41,17 @@ module.exports = function (grunt) {
     }
 
     function commitReadmeFileChanges() {
-      gitExtra.commit('Updating readme file', grunt, tmpDir, done);
+      gitExtra.commit('Updating readme file', grunt, tmpDir, addNpmFiles);
+    }
+
+    function addNpmFiles() {
+      grunt.file.write(tmpDir + '/package.json', depContent);
+      gitExtra.add('package.json', grunt, tmpDir, addBowerFiles);
+    }
+
+    function addBowerFiles() {
+      grunt.file.write(tmpDir + '/bower.json', depContent);
+      gitExtra.add('bower.json', grunt, tmpDir, done);
     }
 
     gitExtra.init(grunt, tmpDir, createReadmeFile);

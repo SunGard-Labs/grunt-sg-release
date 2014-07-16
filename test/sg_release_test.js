@@ -1,9 +1,12 @@
 'use strict';
 
+var path = require('path');
+
 var grunt = require('grunt');
 
 var messages = require('../tasks/lib/messages');
 var gitHelper = require('../tasks/lib/helpers/git');
+var dependenciesHelper = require('../tasks/lib/helpers/dependencies');
 var stdoutEqual = require('./helpers/stdout_equal.js');
 
 /*
@@ -59,6 +62,20 @@ exports.sg_release = {
 
   // ---
 
+
+  testDependencies: function (test) {
+    test.expect(0);
+
+    // TODO: would be better to have folder passed as a Gruntfile option
+    // but grunt-contrib-nodeunit doesn't really have an option for that
+    var dir = path.resolve('tmp');
+
+    function checkBowerInstall() {
+      dependenciesHelper.checkInstall(grunt, dir, 'bower', test.done);
+    }
+
+    dependenciesHelper.checkInstall(grunt, dir, 'npm', checkBowerInstall);
+  }
 
 };
 
