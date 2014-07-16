@@ -27,7 +27,16 @@ module.exports = function (grunt) {
     }
 
     function checkoutDevelop() {
-      gitExtra.checkoutDevelop(grunt, tmpDir, done);
+      gitExtra.checkoutDevelop(grunt, tmpDir, modifyReadmeFile);
+    }
+
+    function modifyReadmeFile() {
+      grunt.file.write(tmpDir + '/README.md', 'Hello world\nNew changeset');
+      gitExtra.add('README.md', grunt, tmpDir, commitReadmeFileChanges);
+    }
+
+    function commitReadmeFileChanges() {
+      gitExtra.commit('Updating readme file', grunt, tmpDir, done);
     }
 
     gitExtra.init(grunt, tmpDir, createReadmeFile);

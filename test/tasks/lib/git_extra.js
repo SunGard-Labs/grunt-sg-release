@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 
 function _exec(command, info) {
 
+  info.grunt.log.debug(command);
   info.grunt.log.debug('Using test dir: ' + info.dir);
 
   var options = {
