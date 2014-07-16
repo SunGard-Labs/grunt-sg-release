@@ -60,7 +60,7 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
   grunt.loadTasks('test/tasks');
 
-  grunt.registerTask('test', ['clean', 'mkdir', 'setup_test_folder', 'sg_release', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'mkdir', 'setup_test_folder', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
