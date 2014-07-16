@@ -60,24 +60,5 @@ exports.sg_release = {
   // ---
 
 
-  default_options: function (test) {
-    test.expect(1);
-
-    test.ok(true);
-
-    test.done();
-  },
-
-
-  // ---
-
-
-  custom_options: function (test) {
-    test.expect(1);
-
-    test.ok(true);
-
-    test.done();
-  }
 };
 

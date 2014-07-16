@@ -7,7 +7,10 @@ var gitExtra = require('./lib/git_extra');
 
 module.exports = function (grunt) {
 
-  grunt.registerMultiTask('setup_test_folder', 'Setup the test folder containing a git repo', function () {
+  grunt.registerMultiTask(
+    'setup_test_folder',
+    'Setup the test folder containing a git repo',
+    function setupTestFolderTask() {
 
     var options = this.options({
       folder: 'tmp'
