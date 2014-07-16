@@ -1,8 +1,10 @@
 'use strict';
 
+
 var which = require('which');
 
 var messages = require('../messages');
+var exec = require('./exec');
 
 
 function testForExec() {
@@ -15,6 +17,10 @@ function testForExec() {
   }
 
 }
+
+
+// ---
+
 
 function check(grunt) {
 
@@ -30,8 +36,23 @@ function check(grunt) {
 // ---
 
 
+function checkout(grunt, dir, branchName, done) {
+
+  exec('git checkout ' + branchName, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   execName: 'git',
-  check: check
+  check: check,
+  checkout: checkout
 };
 
