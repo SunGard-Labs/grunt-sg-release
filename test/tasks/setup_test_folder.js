@@ -19,7 +19,7 @@ module.exports = function (grunt) {
     var tmpDir = path.resolve(options.folder);
 
     var done = this.async();
-    var depContent = '{"name":"foo", "version":"0.0.1"}';
+    var depContent = '{"name":"foo", "version":"0.0.1"}\n';
 
 
     function createReadmeFile() {

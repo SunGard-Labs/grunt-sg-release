@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "grunt-bump": "0.0.14",
     "which": "1.0.5"
   },
   "devDependencies": {
