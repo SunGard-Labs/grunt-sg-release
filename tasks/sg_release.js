@@ -23,7 +23,11 @@ module.exports = function (grunt) {
     }
 
     function checkBowerInstall() {
-      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', done);
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', checkoutTempReleaseBranch);
+    }
+
+    function checkoutTempReleaseBranch() {
+      gitHelper.checkout(grunt, process.cwd(), '-b release', done);
     }
 
     (function start() {
