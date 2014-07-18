@@ -13,7 +13,7 @@ var messages = require('./messages');
 var releaseVersionQuestion = {
   type: 'input',
   name: 'releaseVersion',
-  message: messages.releaseVersionQuestion,
+  message: null,
   validate: function (input) {
     if (semver.valid(input)) {
       return true;
@@ -30,12 +30,15 @@ var releaseVersionQuestion = {
 // ---
 
 
-function getReleaseVersion(grunt, done, mockInput) {
+function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) {
 
-    if (!grunt.option('releaseVersion')) {
+    if (!grunt.option(optionName)) {
+
+      releaseVersionQuestion.message = message;
 
       var prompt = inquirer.prompt([releaseVersionQuestion], function (answers) {
-        grunt.option('setversion', answers['releaseVersion']);
+        grunt.option(optionOutput, answers['releaseVersion']);
+        releaseVersionQuestion.message = null; 
         done();
       });
 
@@ -50,8 +53,29 @@ function getReleaseVersion(grunt, done, mockInput) {
 // ---
 
 
+function getReleaseVersion(grunt, done, mockInput) {
+
+  _getVersion('releaseVersion', 'setversion', messages.releaseVersionQuestion, grunt, done, mockInput);
+
+}
+
+
+// ---
+
+
+function getNextVersion(grunt, done, mockInput) {
+
+  _getVersion('releaseVersion', 'setversion', messages.releaseNextQuestion, grunt, done, mockInput);
+
+}
+
+
+// ---
+
+
 module.exports = {
   releaseQuestion: releaseVersionQuestion,
-  getRelease: getReleaseVersion
+  getRelease: getReleaseVersion,
+  getNext: getNextVersion
 };
 

@@ -92,6 +92,22 @@ exports.sg_release = {
       test.equal(grunt.option('setversion'), defaultVersion);
       test.done();
     }, true);
+  },
+
+
+  // ---
+
+
+  testNextVersion: function (test) {
+    test.expect(1);
+
+    var defaultVersion = '1.2.1-rc';
+
+    version.releaseQuestion.default = defaultVersion;
+    version.getNext(grunt, function() {
+      test.equal(grunt.option('setversion'), defaultVersion);
+      test.done();
+    }, true);
   }
 
 
