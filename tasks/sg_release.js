@@ -9,9 +9,16 @@ module.exports = function (grunt) {
 
   grunt.task.loadNpmTasks('grunt-bump');
 
+
+  // ---
+
+
   grunt.registerTask('prepare_sg_release', function () {
 
     var done = this.async(); 
+    var options = this.options({
+      tempReleaseBranch: 'release'
+    });
 
     function checkNpmInstall() {
       dependenciesHelper.checkInstall(grunt, process.cwd(), 'npm', checkBowerInstall);
@@ -22,7 +29,7 @@ module.exports = function (grunt) {
     }
 
     function checkoutTempReleaseBranch() {
-      gitHelper.checkout(grunt, process.cwd(), '-b release', done);
+      gitHelper.checkout(grunt, process.cwd(), '-b ' + options.tempReleaseBranch, done);
     }
 
     (function start() {
@@ -32,13 +39,11 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      developBranch: 'develop',
-      masterBranch: 'master'
-    });
+  // ---
+
+
+  grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     grunt.task.run('prepare_sg_release');
     grunt.task.run('bump-only');

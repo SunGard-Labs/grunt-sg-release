@@ -43,15 +43,17 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     sg_release: {
       options: {
-          files: [
-              'package.json',
-              'bower.json',
-              'README.md'
-          ],
-          commitMessage: 'Release v%VERSION%',
-          commitFiles: ['-a'], // '-a' for all files
-          createTag: true,
-          pushTo: 'origin'
+        developBranch: 'develop',
+        masterBranch: 'master',
+        files: [
+          'package.json',
+          'bower.json',
+          'README.md'
+        ],
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['-a'], // '-a' for all files
+        createTag: true,
+        pushTo: 'origin'
       },
       tests: {
         developBranch: 'develop',
