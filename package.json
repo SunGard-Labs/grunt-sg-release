@@ -14,6 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "grunt-bump": "0.0.14",
+    "inquirer": "0.5.1",
+    "semver": "2.3.1",
     "which": "1.0.5"
   },
   "devDependencies": {

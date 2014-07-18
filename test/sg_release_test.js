@@ -8,6 +8,7 @@ var messages = require('../tasks/lib/messages');
 var gitHelper = require('../tasks/lib/helpers/git');
 var dependenciesHelper = require('../tasks/lib/helpers/dependencies');
 var stdoutEqual = require('./helpers/stdout_equal.js');
+var version = require('../tasks/lib/version');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -75,7 +76,27 @@ exports.sg_release = {
     }
 
     dependenciesHelper.checkInstall(grunt, dir, 'npm', checkBowerInstall);
+  },
+
+
+  // ---
+
+
+  testReleaseVersion: function (test) {
+    test.expect(1);
+
+    var defaultVersion = '1.2.0';
+
+    (function testInputReleaseVersion() {
+      version.releaseQuestion.default = defaultVersion;
+      version.getRelease(grunt, function() {
+        test.equal(grunt.option('setversion'), defaultVersion);
+        test.done();
+      }, true);
+    })();
+
   }
+
 
 };
 
