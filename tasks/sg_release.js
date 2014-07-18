@@ -32,15 +32,15 @@ module.exports = function (grunt) {
     }
 
     function checkBowerInstall() {
-      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', checkoutTempReleaseBranch);
-    }
-
-    function checkoutTempReleaseBranch() {
-      gitHelper.checkout(grunt, process.cwd(), '-b ' + options.tempReleaseBranch, getReleaseVersion);
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', getReleaseVersion);
     }
 
     function getReleaseVersion() {
-      version.getRelease(grunt, done);
+      version.getRelease(grunt, checkoutTempReleaseBranch);
+    }
+
+    function checkoutTempReleaseBranch() {
+      gitHelper.checkout(grunt, process.cwd(), '-b ' + options.tempReleaseBranch, done);
     }
 
     (function start() {
