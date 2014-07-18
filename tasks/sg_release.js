@@ -17,10 +17,15 @@ module.exports = function (grunt) {
 
   grunt.registerTask('prepare_sg_release', function () {
 
-    var done = this.async(); 
+    var done = this.async();
     var options = this.options({
       tempReleaseBranch: 'release'
     });
+
+    function checkGit() {
+      gitHelper.check(grunt);
+      checkNpmInstall();
+    }
 
     function checkNpmInstall() {
       dependenciesHelper.checkInstall(grunt, process.cwd(), 'npm', checkBowerInstall);
@@ -39,8 +44,7 @@ module.exports = function (grunt) {
     }
 
     (function start() {
-      gitHelper.check(grunt);
-      checkNpmInstall();
+      checkGit();
     })();
 
   });
