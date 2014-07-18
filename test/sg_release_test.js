@@ -87,14 +87,11 @@ exports.sg_release = {
 
     var defaultVersion = '1.2.0';
 
-    (function testInputReleaseVersion() {
-      version.releaseQuestion.default = defaultVersion;
-      version.getRelease(grunt, function() {
-        test.equal(grunt.option('setversion'), defaultVersion);
-        test.done();
-      }, true);
-    })();
-
+    version.releaseQuestion.default = defaultVersion;
+    version.getRelease(grunt, function() {
+      test.equal(grunt.option('setversion'), defaultVersion);
+      test.done();
+    }, true);
   }
 
 
