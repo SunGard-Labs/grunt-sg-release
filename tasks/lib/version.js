@@ -12,7 +12,7 @@ var messages = require('./messages');
 
 var releaseVersionQuestion = {
   type: 'input',
-  name: 'releaseVersion',
+  name: null,
   message: null,
   validate: function (input) {
     if (semver.valid(input)) {
@@ -34,10 +34,14 @@ function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) 
 
     if (!grunt.option(optionName)) {
 
+      releaseVersionQuestion.name =  optionName;
       releaseVersionQuestion.message = message;
 
       var prompt = inquirer.prompt([releaseVersionQuestion], function (answers) {
-        grunt.option(optionOutput, answers['releaseVersion']);
+
+        // Set up output value and reset question values
+        grunt.option(optionOutput, answers[optionName]);
+        releaseVersionQuestion.name = null; 
         releaseVersionQuestion.message = null; 
         done();
       });
@@ -45,7 +49,6 @@ function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) 
       if (mockInput) {
         prompt.rl.emit('line');
       }
-
     }
 }
 
@@ -55,6 +58,7 @@ function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) 
 
 function getReleaseVersion(grunt, done, mockInput) {
 
+  // setversion is the name of the config option used by grunt-bump plugin
   _getVersion('releaseVersion', 'setversion', messages.releaseVersionQuestion, grunt, done, mockInput);
 
 }
@@ -65,7 +69,8 @@ function getReleaseVersion(grunt, done, mockInput) {
 
 function getNextVersion(grunt, done, mockInput) {
 
-  _getVersion('releaseVersion', 'setversion', messages.releaseNextQuestion, grunt, done, mockInput);
+  // setversion is the name of the config option used by grunt-bump plugin
+  _getVersion('developVersion', 'setversion', messages.releaseNextQuestion, grunt, done, mockInput);
 
 }
 
