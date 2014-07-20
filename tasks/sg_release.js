@@ -54,10 +54,32 @@ module.exports = function (grunt) {
   // ---
 
 
+  grunt.registerTask('merge_sg_release', function () {
+
+    var done = this.async();
+    var options = this.options({
+      masterBranch: 'master'
+    });
+
+    function checkoutMaster() {
+      gitHelper.checkout(grunt, process.cwd(), options.masterBranch, done);
+    }
+
+    (function start() {
+      checkoutMaster();
+    })();
+
+  });
+
+
+  // ---
+
+
   grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     grunt.task.run('prepare_sg_release');
     grunt.task.run('bump-only');
+    grunt.task.run('merge_sg_release');
 
   });
 
