@@ -50,6 +50,20 @@ function checkout(grunt, dir, branchName, done) {
 // ---
 
 
+function merge(grunt, dir, mergeFromBranch, msg, done) {
+
+  exec('git merge --no-ff -m "' + msg + '" ' + mergeFromBranch, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   execName: 'git',
   check: check,

@@ -58,11 +58,16 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var options = this.options({
-      masterBranch: 'master'
+      masterBranch: 'master',
+      mergeToMasterMsg: 'Merge into master'
     });
 
     function checkoutMaster() {
-      gitHelper.checkout(grunt, process.cwd(), options.masterBranch, done);
+      gitHelper.checkout(grunt, process.cwd(), options.masterBranch, mergeFromTempReleaseBranch);
+    }
+
+    function mergeFromTempReleaseBranch() {
+      gitHelper.merge(grunt, process.cwd(), options.tempReleaseBranch, options.mergeToMasterMsg, done);
     }
 
     (function start() {
