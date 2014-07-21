@@ -60,7 +60,9 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var options = this.options({
+      developBranch: 'develop',
       masterBranch: 'master',
+      mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master'
     });
 
@@ -73,7 +75,11 @@ module.exports = function (grunt) {
     }
 
     function checkoutDevelop() {
-      gitHelper.checkout(grunt, process.cwd(), options.developBranch, done);
+      gitHelper.checkout(grunt, process.cwd(), options.developBranch, mergeIntoDevelopBranch);
+    }
+
+    function mergeIntoDevelopBranch() {
+      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, done);
     }
 
     (function start() {
