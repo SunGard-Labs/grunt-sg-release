@@ -99,8 +99,16 @@ module.exports = function (grunt) {
   grunt.registerTask('finish_sg_release', function () {
 
     var done = this.async();
+    var options = this.options({
+      developVersionCommitMsg: 'Increased version for development'
+    });
+
+    function commitDevelopmentVersion() {
+      gitHelper.commit(grunt, process.cwd(), options.developVersionCommitMsg, done);
+    }
 
     (function start() {
+      commitDevelopmentVersion();
     })();
 
   });
