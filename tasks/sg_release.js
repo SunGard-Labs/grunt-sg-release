@@ -62,8 +62,8 @@ module.exports = function (grunt) {
     var options = this.options({
       developBranch: 'develop',
       masterBranch: 'master',
-      mergeToDevelopMsg: 'Merge into develop',
-      mergeToMasterMsg: 'Merge into master'
+      mergeToDevelopMsg: messages.mergeToMasterMsg,
+      mergeToMasterMsg: messages.mergeToDevelopMsg
     });
 
     function checkoutMaster() {
