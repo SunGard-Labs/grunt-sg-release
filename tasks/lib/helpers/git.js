@@ -67,6 +67,7 @@ function merge(grunt, dir, mergeFromBranch, msg, done) {
 module.exports = {
   execName: 'git',
   check: check,
-  checkout: checkout
+  checkout: checkout,
+  merge: merge
 };
 

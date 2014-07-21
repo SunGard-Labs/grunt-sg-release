@@ -153,7 +153,21 @@ exports.sg_release = {
           test.done();
         }
       });
-      test.equal(1, 1);
+    });
+  },
+
+
+  // ---
+
+
+  testMergeIntoMaster: function (test) {
+    test.expect(1);
+
+    var dir = path.resolve('tmp');
+    var releaseVersion = '1.2.0';
+    gitHelper.merge(grunt, dir, 'release/' + releaseVersion, messages.mergeToMasterMsg, function (stdout) {
+      // output should contain success message
+      test.notEqual(stdout.indexOf('Merge made'), -1);
       test.done();
     });
   }
