@@ -32,24 +32,25 @@ var releaseVersionQuestion = {
 
 function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) {
 
-    if (!grunt.option(optionName)) {
+  if (!grunt.option(optionName)) {
 
-      releaseVersionQuestion.name =  optionName;
-      releaseVersionQuestion.message = message;
+    releaseVersionQuestion.name =  optionName;
+    releaseVersionQuestion.message = message;
 
-      var prompt = inquirer.prompt([releaseVersionQuestion], function (answers) {
+    var prompt = inquirer.prompt([releaseVersionQuestion], function (answers) {
 
-        // Set up output value and reset question values
-        grunt.option(optionOutput, answers[optionName]);
-        releaseVersionQuestion.name = null; 
-        releaseVersionQuestion.message = null; 
-        done();
-      });
+      // Set up output value and reset question values
+      grunt.option(optionOutput, answers[optionName]);
+      releaseVersionQuestion.name = null;
+      releaseVersionQuestion.message = null;
+      done();
+    });
 
-      if (mockInput) {
-        prompt.rl.emit('line');
-      }
+    // Force input, used for testing
+    if (mockInput) {
+      prompt.rl.emit('line');
     }
+  }
 }
 
 
