@@ -38,12 +38,12 @@ module.exports = function (grunt) {
     }
 
     function getReleaseVersion() {
-      version.getRelease(grunt, checkoutTempReleaseBranch);
+      version.getRelease(grunt, createTempReleaseBranch);
     }
 
-    function checkoutTempReleaseBranch() {
+    function createTempReleaseBranch() {
       releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
-      gitHelper.checkout(grunt, process.cwd(), '-b ' + releaseBranchName, done);
+      gitHelper.createBranch(grunt, process.cwd(), releaseBranchName, done);
     }
 
     (function start() {

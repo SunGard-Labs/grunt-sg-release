@@ -123,7 +123,7 @@ exports.sg_release = {
     test.expect(1);
 
     var releaseVersion = '1.2.0';
-    gitHelper.checkout(grunt, dir, '-b ' + releaseBranchName, function () {
+    gitHelper.createBranch(grunt, dir, releaseBranchName, function () {
       exec('git branch', {
         grunt: grunt,
         dir: dir,

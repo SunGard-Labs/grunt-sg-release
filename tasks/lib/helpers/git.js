@@ -64,10 +64,36 @@ function merge(grunt, dir, mergeFromBranch, msg, done) {
 // ---
 
 
+function createBranch(grunt, dir, branchName, done) {
+
+  checkout(grunt, dir, '-b ' + branchName, done);
+
+}
+
+
+// ---
+
+
+function deleteBranch(grunt, dir, branchName, done) {
+
+  exec('git branch -D ' + branchName, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   execName: 'git',
   check: check,
   checkout: checkout,
+  createBranch: createBranch,
+  deleteBranch: deleteBranch,
   merge: merge
 };
 
