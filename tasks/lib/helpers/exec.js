@@ -22,7 +22,7 @@ module.exports = function exec(command, info) {
       info.grunt.fatal('Could not run the command: ' + command);
     }
 
-    info.done();
+    info.done(stdout);
   });
 
 };

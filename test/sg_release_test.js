@@ -4,6 +4,7 @@ var path = require('path');
 
 var grunt = require('grunt');
 
+var exec = require('../tasks/lib/helpers/exec');
 var messages = require('../tasks/lib/messages');
 var gitHelper = require('../tasks/lib/helpers/git');
 var dependenciesHelper = require('../tasks/lib/helpers/dependencies');
@@ -108,8 +109,30 @@ exports.sg_release = {
       test.equal(grunt.option('setversion'), defaultVersion);
       test.done();
     }, true);
-  }
+  },
 
+
+  // ---
+
+
+  testCreateNewBranch: function (test) {
+    test.expect(1);
+
+    var dir = path.resolve('tmp');
+    var releaseVersion = '1.2.0';
+    var branchName = '-b ' + 'release' + '/' + releaseVersion;
+    gitHelper.checkout(grunt, dir, branchName, function () {
+      exec('git branch', {
+        grunt: grunt,
+        dir: dir,
+        done: function (stdout) {
+          // output should contain the new branch name
+          test.notEqual(stdout.indexOf('release/' + releaseVersion), -1);
+          test.done();
+        }
+      });
+    });
+  }
 
 };
 
