@@ -88,10 +88,25 @@ function deleteBranch(grunt, dir, branchName, done) {
 // ---
 
 
+function commit(msg, grunt, dir, done){
+
+  exec('git commit -a -m "' + msg + '"', {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   execName: 'git',
   check: check,
   checkout: checkout,
+  commit: commit,
   createBranch: createBranch,
   deleteBranch: deleteBranch,
   merge: merge

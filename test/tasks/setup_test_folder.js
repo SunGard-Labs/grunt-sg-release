@@ -4,6 +4,7 @@
 var path = require('path');
 
 var gitExtra = require('./lib/git_extra');
+var gitHelper = require('../../tasks/lib/helpers/git');
 
 module.exports = function (grunt) {
 
@@ -28,7 +29,7 @@ module.exports = function (grunt) {
     }
 
     function commitReadmeFile() {
-      gitExtra.commit('Adding readme file', grunt, tmpDir, checkoutDevelop);
+      gitHelper.commit('Adding readme file', grunt, tmpDir, checkoutDevelop);
     }
 
     function checkoutDevelop() {
@@ -41,7 +42,7 @@ module.exports = function (grunt) {
     }
 
     function commitReadmeFileChanges() {
-      gitExtra.commit('Updating readme file', grunt, tmpDir, addNpmFiles);
+      gitHelper.commit('Updating readme file', grunt, tmpDir, addNpmFiles);
     }
 
     function addNpmFiles() {
@@ -55,7 +56,7 @@ module.exports = function (grunt) {
     }
 
     function commitPackageFiles() {
-      gitExtra.commit('Adding package files', grunt, tmpDir, done);
+      gitHelper.commit('Adding package files', grunt, tmpDir, done);
     }
 
     gitExtra.init(grunt, tmpDir, createReadmeFile);

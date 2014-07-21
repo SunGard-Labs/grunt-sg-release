@@ -32,20 +32,6 @@ function gitCheckoutDevelop(grunt, dir, done){
 // ---
 
 
-function gitCommit(msg, grunt, dir, done){
-
-  exec('git commit -m \'' + msg + '\'', {
-    grunt: grunt,
-    dir: dir,
-    done: done
-  });
-
-}
-
-
-// ---
-
-
 function gitAdd(filename, grunt, dir, done){
 
   exec('git add ' + filename, {
@@ -63,7 +49,6 @@ function gitAdd(filename, grunt, dir, done){
 module.exports = {
   init: gitInit,
   checkoutDevelop: gitCheckoutDevelop,
-  commit: gitCommit,
   add: gitAdd
 };
 
