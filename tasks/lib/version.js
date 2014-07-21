@@ -32,7 +32,9 @@ var releaseVersionQuestion = {
 
 function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) {
 
-  if (!grunt.option(optionName)) {
+  var versionValue = grunt.option(optionName);
+
+  if (!versionValue) {
 
     releaseVersionQuestion.name =  optionName;
     releaseVersionQuestion.message = message;
@@ -50,6 +52,12 @@ function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) 
     if (mockInput) {
       prompt.rl.emit('line');
     }
+
+  } else {
+
+    // If value exists, just set output and move along
+    grunt.option(optionOutput, versionValue);
+    done();
   }
 }
 
