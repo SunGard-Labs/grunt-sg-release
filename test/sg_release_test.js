@@ -70,6 +70,7 @@ exports.sg_release = {
 
     // TODO: would be better to have folder passed as a Gruntfile option
     // but grunt-contrib-nodeunit doesn't really have an option for that
+    // https://github.com/gruntjs/grunt-contrib-nodeunit/issues/26
     var dir = path.resolve('tmp');
 
     function checkBowerInstall() {
