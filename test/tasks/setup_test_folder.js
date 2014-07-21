@@ -51,7 +51,11 @@ module.exports = function (grunt) {
 
     function addBowerFiles() {
       grunt.file.write(tmpDir + '/bower.json', depContent);
-      gitExtra.add('bower.json', grunt, tmpDir, done);
+      gitExtra.add('bower.json', grunt, tmpDir, commitPackageFiles);
+    }
+
+    function commitPackageFiles() {
+      gitExtra.commit('Adding package files', grunt, tmpDir, done);
     }
 
     gitExtra.init(grunt, tmpDir, createReadmeFile);

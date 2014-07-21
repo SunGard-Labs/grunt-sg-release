@@ -133,6 +133,29 @@ exports.sg_release = {
         }
       });
     });
+  },
+
+
+  // ---
+
+
+  testCheckoutMaster: function (test) {
+    test.expect(1);
+
+    var dir = path.resolve('tmp');
+    gitHelper.checkout(grunt, dir, 'master', function (stdout) {
+      exec('git branch', {
+        grunt: grunt,
+        dir: dir,
+        done: function (stdout) {
+          // output should contain correct current branch indication
+          test.notEqual(stdout.indexOf('* master'), -1);
+          test.done();
+        }
+      });
+      test.equal(1, 1);
+      test.done();
+    });
   }
 
 };
