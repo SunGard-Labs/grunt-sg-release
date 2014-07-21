@@ -4,6 +4,7 @@
 module.exports = {
 
   gitFound: 'Git command found!',
+  developVersionCommitMsg: 'Increased version for development',
   mergeToMasterMsg: 'Merge into master',
   mergeToDevelopMsg: 'Merge into develop',
   noGitError: 'Could not find git command, make sure you install Git before using this plugin',

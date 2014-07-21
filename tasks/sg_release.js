@@ -100,7 +100,7 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var options = this.options({
-      developVersionCommitMsg: 'Increased version for development'
+      developVersionCommitMsg: messages.developVersionCommitMsg
     });
 
     function commitDevelopmentVersion() {
