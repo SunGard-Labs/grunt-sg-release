@@ -223,5 +223,26 @@ exports.sg_release = {
     });
   },
 
+
+  // ---
+
+
+  testCommitDevelopment: function (test) {
+    test.expect(1);
+
+    var testContent = '{"name":"foo", "version":"0.0.2"}\n';
+
+    // Touch 2 version files to simulate changes on repo
+    grunt.file.write(dir + '/bower.json', testContent);
+    grunt.file.write(dir + '/package.json', testContent);
+
+    gitHelper.commit(grunt, dir, messages.developVersionCommitMsg, function (stdout) {
+      console.log(stdout);
+      // output should contain success commit msg
+      test.notEqual(stdout.indexOf('2 files changed'), -1);
+      test.done();
+    });
+  }
+
 };
 
