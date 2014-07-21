@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     }
 
     function checkoutTempReleaseBranch() {
-      var branchName = '-b ' + options.tempReleaseBranch + '/' + grunt.option('setversion');
+      var branchName = '-b ' + options.tempReleaseBranch + '/v' + grunt.option('setversion');
       gitHelper.checkout(grunt, process.cwd(), branchName, done);
     }
 
