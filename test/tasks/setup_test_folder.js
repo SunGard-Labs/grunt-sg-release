@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     }
 
     function commitReadmeFile() {
-      gitHelper.commit('Adding readme file', grunt, tmpDir, checkoutDevelop);
+      gitHelper.commit(grunt, tmpDir, 'Adding readme file', checkoutDevelop);
     }
 
     function checkoutDevelop() {
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
     }
 
     function commitReadmeFileChanges() {
-      gitHelper.commit('Updating readme file', grunt, tmpDir, addNpmFiles);
+      gitHelper.commit(grunt, tmpDir, 'Updating readme file', addNpmFiles);
     }
 
     function addNpmFiles() {
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
     }
 
     function commitPackageFiles() {
-      gitHelper.commit('Adding package files', grunt, tmpDir, done);
+      gitHelper.commit(grunt, tmpDir, 'Adding package files', done);
     }
 
     gitExtra.init(grunt, tmpDir, createReadmeFile);

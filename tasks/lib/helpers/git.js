@@ -88,7 +88,7 @@ function deleteBranch(grunt, dir, branchName, done) {
 // ---
 
 
-function commit(msg, grunt, dir, done){
+function commit(grunt, dir, msg, done){
 
   exec('git commit -a -m "' + msg + '"', {
     grunt: grunt,
