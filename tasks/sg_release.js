@@ -67,7 +67,11 @@ module.exports = function (grunt) {
     }
 
     function mergeFromTempReleaseBranch() {
-      gitHelper.merge(grunt, process.cwd(), options.tempReleaseBranch, options.mergeToMasterMsg, done);
+      gitHelper.merge(grunt, process.cwd(), options.tempReleaseBranch, options.mergeToMasterMsg, checkoutDevelop);
+    }
+
+    function checkoutDevelop() {
+      gitHelper.checkout(grunt, process.cwd(), options.developBranch, done);
     }
 
     (function start() {
