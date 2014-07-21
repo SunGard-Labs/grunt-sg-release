@@ -31,6 +31,14 @@ var version = require('../tasks/lib/version');
     test.ifError(value)
 */
 
+
+// TODO: would be better to have folder passed as a Gruntfile option
+// but grunt-contrib-nodeunit doesn't really have an option for that
+// https://github.com/gruntjs/grunt-contrib-nodeunit/issues/26
+var dir = path.resolve('tmp');
+var releaseVersion = '1.2.0';
+var releaseBranchName = 'release/v' + releaseVersion;
+
 exports.sg_release = {
 
   setUp: function (done) {
@@ -68,11 +76,6 @@ exports.sg_release = {
   testDependencies: function (test) {
     test.expect(0);
 
-    // TODO: would be better to have folder passed as a Gruntfile option
-    // but grunt-contrib-nodeunit doesn't really have an option for that
-    // https://github.com/gruntjs/grunt-contrib-nodeunit/issues/26
-    var dir = path.resolve('tmp');
-
     function checkBowerInstall() {
       dependenciesHelper.checkInstall(grunt, dir, 'bower', test.done);
     }
@@ -87,7 +90,7 @@ exports.sg_release = {
   testReleaseVersion: function (test) {
     test.expect(1);
 
-    var defaultVersion = '1.2.0';
+    var defaultVersion = releaseVersion;
 
     version.releaseQuestion.default = defaultVersion;
     version.getRelease(grunt, function() {
@@ -119,16 +122,14 @@ exports.sg_release = {
   testCreateNewBranch: function (test) {
     test.expect(1);
 
-    var dir = path.resolve('tmp');
     var releaseVersion = '1.2.0';
-    var branchName = '-b ' + 'release' + '/' + releaseVersion;
-    gitHelper.checkout(grunt, dir, branchName, function () {
+    gitHelper.checkout(grunt, dir, '-b ' + releaseBranchName, function () {
       exec('git branch', {
         grunt: grunt,
         dir: dir,
         done: function (stdout) {
           // output should contain the new branch name
-          test.notEqual(stdout.indexOf('release/' + releaseVersion), -1);
+          test.notEqual(stdout.indexOf(releaseBranchName), -1);
           test.done();
         }
       });
@@ -142,7 +143,6 @@ exports.sg_release = {
   testCheckoutMaster: function (test) {
     test.expect(1);
 
-    var dir = path.resolve('tmp');
     gitHelper.checkout(grunt, dir, 'master', function (stdout) {
       exec('git branch', {
         grunt: grunt,
@@ -163,9 +163,7 @@ exports.sg_release = {
   testMergeIntoMaster: function (test) {
     test.expect(1);
 
-    var dir = path.resolve('tmp');
-    var releaseVersion = '1.2.0';
-    gitHelper.merge(grunt, dir, 'release/' + releaseVersion, messages.mergeToMasterMsg, function (stdout) {
+    gitHelper.merge(grunt, dir, releaseBranchName, messages.mergeToMasterMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Merge made'), -1);
       test.done();
