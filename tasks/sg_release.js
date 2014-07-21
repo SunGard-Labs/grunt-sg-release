@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // ---
 
 
+  var releaseBranchName;
+
   grunt.registerTask('prepare_sg_release', function () {
 
     var done = this.async();
@@ -40,8 +42,8 @@ module.exports = function (grunt) {
     }
 
     function checkoutTempReleaseBranch() {
-      var branchName = '-b ' + options.tempReleaseBranch + '/v' + grunt.option('setversion');
-      gitHelper.checkout(grunt, process.cwd(), branchName, done);
+      releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
+      gitHelper.checkout(grunt, process.cwd(), '-b ' + releaseBranchName, done);
     }
 
     (function start() {
@@ -67,7 +69,7 @@ module.exports = function (grunt) {
     }
 
     function mergeFromTempReleaseBranch() {
-      gitHelper.merge(grunt, process.cwd(), options.tempReleaseBranch, options.mergeToMasterMsg, checkoutDevelop);
+      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, checkoutDevelop);
     }
 
     function checkoutDevelop() {
