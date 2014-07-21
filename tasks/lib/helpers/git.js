@@ -102,6 +102,20 @@ function commit(grunt, dir, msg, done){
 // ---
 
 
+function push(grunt, dir, remote, value, done){
+
+  exec('git push ' + remote + ' ' + value, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   execName: 'git',
   check: check,
@@ -109,6 +123,7 @@ module.exports = {
   commit: commit,
   createBranch: createBranch,
   deleteBranch: deleteBranch,
-  merge: merge
+  merge: merge,
+  push: push
 };
 
