@@ -79,7 +79,11 @@ module.exports = function (grunt) {
     }
 
     function mergeIntoDevelopBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, done);
+      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, deleteTempReleaseBranch);
+    }
+
+    function deleteTempReleaseBranch() {
+      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, done);
     }
 
     (function start() {
