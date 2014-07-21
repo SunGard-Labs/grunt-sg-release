@@ -96,11 +96,26 @@ module.exports = function (grunt) {
   // ---
 
 
+  grunt.registerTask('finish_sg_release', function () {
+
+    var done = this.async();
+
+    (function start() {
+    })();
+
+  });
+
+
+  // ---
+
+
   grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     grunt.task.run('prepare_sg_release');
-    grunt.task.run('bump-only');
+    grunt.task.run('bump');
     grunt.task.run('merge_sg_release');
+    grunt.task.run('bump-only');
+    grunt.task.run('finish_sg_release');
 
   });
 
