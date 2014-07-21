@@ -143,7 +143,7 @@ exports.sg_release = {
   testCheckoutMaster: function (test) {
     test.expect(1);
 
-    gitHelper.checkout(grunt, dir, 'master', function (stdout) {
+    gitHelper.checkout(grunt, dir, 'master', function () {
       exec('git branch', {
         grunt: grunt,
         dir: dir,
@@ -166,6 +166,40 @@ exports.sg_release = {
     gitHelper.merge(grunt, dir, releaseBranchName, messages.mergeToMasterMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Merge made'), -1);
+      test.done();
+    });
+  },
+
+
+  // ---
+
+
+  testCheckoutDevelop: function (test) {
+    test.expect(1);
+
+    gitHelper.checkout(grunt, dir, 'develop', function () {
+      exec('git branch', {
+        grunt: grunt,
+        dir: dir,
+        done: function (stdout) {
+          // output should contain correct current branch indication
+          test.notEqual(stdout.indexOf('* develop'), -1);
+          test.done();
+        }
+      });
+    });
+  },
+
+
+  // ---
+
+
+  testMergeIntoDevelop: function (test) {
+    test.expect(1);
+
+    gitHelper.merge(grunt, dir, releaseBranchName, messages.mergeToDevelopMsg, function (stdout) {
+      // output should contain success message
+      test.notEqual(stdout.indexOf('Already up-to-date'), -1);
       test.done();
     });
   }
