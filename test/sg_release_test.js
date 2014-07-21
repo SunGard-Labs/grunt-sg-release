@@ -122,7 +122,6 @@ exports.sg_release = {
   testCreateNewBranch: function (test) {
     test.expect(1);
 
-    var releaseVersion = '1.2.0';
     gitHelper.createBranch(grunt, dir, releaseBranchName, function () {
       exec('git branch', {
         grunt: grunt,
@@ -202,7 +201,27 @@ exports.sg_release = {
       test.notEqual(stdout.indexOf('Already up-to-date'), -1);
       test.done();
     });
-  }
+  },
+
+
+  // ---
+
+
+  testRemoveBranch: function (test) {
+    test.expect(1);
+
+    gitHelper.deleteBranch(grunt, dir, releaseBranchName, function () {
+      exec('git branch', {
+        grunt: grunt,
+        dir: dir,
+        done: function (stdout) {
+          // output should contain the new branch name
+          test.equal(stdout.indexOf(releaseBranchName), -1);
+          test.done();
+        }
+      });
+    });
+  },
 
 };
 
