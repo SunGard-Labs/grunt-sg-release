@@ -237,9 +237,34 @@ exports.sg_release = {
     grunt.file.write(dir + '/package.json', testContent);
 
     gitHelper.commit(grunt, dir, messages.developVersionCommitMsg, function (stdout) {
-      console.log(stdout);
       // output should contain success commit msg
       test.notEqual(stdout.indexOf('2 files changed'), -1);
+      test.done();
+    });
+  },
+
+
+  // ---
+
+
+  testPushDevelop: function (test) {
+    test.expect(0);
+
+    gitHelper.push(grunt, dir, 'origin', 'develop', function (stdout) {
+      // if command have not failed, push was successful
+      test.done();
+    });
+  },
+
+
+  // ---
+
+
+  testPushMaster: function (test) {
+    test.expect(0);
+
+    gitHelper.push(grunt, dir, 'origin', 'master', function (stdout) {
+      // if command have not failed, push was successful
       test.done();
     });
   }
