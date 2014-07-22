@@ -2,6 +2,14 @@
 
 > The SunGard standard release script for HTML5 projects.
 
+## About
+
+This task provides the standard workflow for creating releases on git repositories.
+
+### Requirements
+
+We require that `git` is installed and available as a system-wide command. **npm** and **Bower** are also required in order to validate HTML5 packages but you can disable this validation using the configurable options.
+
 ## Getting Started
 This plugin requires Grunt.
 
