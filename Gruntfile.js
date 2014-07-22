@@ -22,20 +22,21 @@ module.exports = function (grunt) {
     clean: {
       tests: {
         dot: true,
-        src: ['tmp']
+        src: ['tmp_remote', 'tmp']
       }
     },
 
     mkdir: {
       tests: {
         options: {
-          create: ['tmp']
+          create: ['tmp_remote']
         }
       }
     },
 
     setup_test_folder: {
       tests: {
+        remote_folder: 'tmp_remote',
         folder: 'tmp'
       }
     },

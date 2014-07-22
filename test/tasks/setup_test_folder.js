@@ -14,14 +14,24 @@ module.exports = function (grunt) {
     function setupTestFolderTask() {
 
     var options = this.options({
+      remote_folder: 'tmp_remote',
       folder: 'tmp'
     });
 
+    var remoteDir = path.resolve(options.remote_folder);
     var tmpDir = path.resolve(options.folder);
 
     var done = this.async();
     var depContent = '{"name":"foo", "version":"0.0.1"}\n';
 
+
+    function createRepo() {
+      gitExtra.init(grunt, remoteDir, cloneRepo);
+    }
+
+    function cloneRepo() {
+      gitExtra.clone(grunt, tmpDir, remoteDir, createReadmeFile);
+    }
 
     function createReadmeFile() {
       grunt.file.write(tmpDir + '/README.md', 'Hello world');
@@ -59,7 +69,9 @@ module.exports = function (grunt) {
       gitHelper.commit(grunt, tmpDir, 'Adding package files', done);
     }
 
-    gitExtra.init(grunt, tmpDir, createReadmeFile);
+    (function start() {
+      createRepo();
+    })();
 
   });
 
