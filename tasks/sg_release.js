@@ -118,7 +118,12 @@ module.exports = function (grunt) {
     }
 
     function pushMasterBranch() {
-      gitHelper.push(grunt, process.cwd(), options.pushTo, options.masterBranch, done);
+      gitHelper.push(grunt, process.cwd(), options.pushTo, options.masterBranch, pushReleaseTag);
+    }
+
+    function pushReleaseTag() {
+      var gruntBumpReleaseVersion = 'v' + grunt.option('setversion');
+      gitHelper.push(grunt, process.cwd(), options.pushTo, gruntBumpReleaseVersion, done);
     }
 
     (function start() {
