@@ -114,7 +114,11 @@ module.exports = function (grunt) {
     }
 
     function pushDevelopBranch() {
-      gitHelper.push(grunt, process.cwd(), options.pushTo, options.developBranch, done);
+      gitHelper.push(grunt, process.cwd(), options.pushTo, options.developBranch, pushMasterBranch);
+    }
+
+    function pushMasterBranch() {
+      gitHelper.push(grunt, process.cwd(), options.pushTo, options.masterBranch, done);
     }
 
     (function start() {
