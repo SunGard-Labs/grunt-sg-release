@@ -16,12 +16,15 @@ module.exports = function (grunt) {
 
 
   var releaseBranchName;
+  var defaultDevelopBranch = 'develop';
+  var defaultMasterBranch = 'master';
+  var defaultReleaseBranch = 'release';
 
   grunt.registerTask('prepare_sg_release', function () {
 
     var done = this.async();
     var options = this.options({
-      tempReleaseBranch: 'release'
+      tempReleaseBranch: defaultReleaseBranch
     });
 
     function checkGit() {
@@ -60,8 +63,8 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var options = this.options({
-      developBranch: 'develop',
-      masterBranch: 'master',
+      developBranch: defaultDevelopBranch,
+      masterBranch: defaultMasterBranch,
       mergeToDevelopMsg: messages.mergeToMasterMsg,
       mergeToMasterMsg: messages.mergeToDevelopMsg
     });
@@ -100,11 +103,18 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var options = this.options({
-      developVersionCommitMsg: messages.developVersionCommitMsg
+      developBranch: defaultDevelopBranch,
+      masterBranch: defaultMasterBranch,
+      developVersionCommitMsg: messages.developVersionCommitMsg,
+      pushTo: 'origin'
     });
 
     function commitDevelopmentVersion() {
-      gitHelper.commit(grunt, process.cwd(), options.developVersionCommitMsg, done);
+      gitHelper.commit(grunt, process.cwd(), options.developVersionCommitMsg, pushDevelopBranch);
+    }
+
+    function pushDevelopBranch() {
+      gitHelper.push(grunt, process.cwd(), options.pushTo, options.developBranch, done);
     }
 
     (function start() {
