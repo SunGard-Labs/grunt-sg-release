@@ -60,10 +60,25 @@ function gitAdd(filename, grunt, dir, done){
 // ---
 
 
+function gitTag(grunt, dir, tagName, msg, done){
+
+  exec('git tag -a ' + tagName + ' -m "' + msg + '"', {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+
+// ---
+
+
 module.exports = {
   init: gitInit,
   checkoutDevelop: gitCheckoutDevelop,
   clone: gitClone,
+  tag: gitTag,
   add: gitAdd
 };
 

@@ -66,7 +66,11 @@ module.exports = function (grunt) {
     }
 
     function commitPackageFiles() {
-      gitHelper.commit(grunt, tmpDir, 'Adding package files', done);
+      gitHelper.commit(grunt, tmpDir, 'Adding package files', tagRepo);
+    }
+
+    function tagRepo() {
+      gitExtra.tag(grunt, tmpDir, 'v1.0.0', 'Release v1.0.0', done);
     }
 
     (function start() {

@@ -267,6 +267,19 @@ exports.sg_release = {
       // if command have not failed, push was successful
       test.done();
     });
+  },
+
+
+  // ---
+
+
+  testPushTag: function (test) {
+    test.expect(0);
+
+    gitHelper.push(grunt, dir, 'origin', 'v1.0.0', function (stdout) {
+      // if command have not failed, push was successful
+      test.done();
+    });
   }
 
 };
