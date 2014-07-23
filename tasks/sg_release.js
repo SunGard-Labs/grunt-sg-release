@@ -17,9 +17,6 @@ module.exports = function (grunt) {
 
   var options;
   var releaseBranchName;
-  var defaultDevelopBranch = 'develop';
-  var defaultMasterBranch = 'master';
-  var defaultReleaseBranch = 'release';
 
   grunt.registerTask('prepare_sg_release', function () {
 
@@ -130,11 +127,11 @@ module.exports = function (grunt) {
     options = this.options({
       skipBowerInstall: false,
       skipNpmInstall: false,
-      developBranch: defaultDevelopBranch,
-      masterBranch: defaultMasterBranch,
+      developBranch: 'develop',
+      masterBranch: 'master',
       mergeToDevelopMsg: messages.mergeToMasterMsg,
       mergeToMasterMsg: messages.mergeToDevelopMsg,
-      tempReleaseBranch: defaultReleaseBranch,
+      tempReleaseBranch: 'release',
       developVersionCommitMsg: messages.developVersionCommitMsg,
       pushTo: 'upstream'
     });
