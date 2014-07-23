@@ -132,7 +132,8 @@ module.exports = function (grunt) {
       mergeToDevelopMsg: messages.mergeToMasterMsg,
       mergeToMasterMsg: messages.mergeToDevelopMsg,
       tempReleaseBranch: defaultReleaseBranch,
-      developVersionCommitMsg: messages.developVersionCommitMsg
+      developVersionCommitMsg: messages.developVersionCommitMsg,
+      pushTo: 'upstream'
     });
 
     grunt.task.run('prepare_sg_release');
