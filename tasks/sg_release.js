@@ -78,7 +78,11 @@ module.exports = function (grunt) {
     }
 
     function deleteTempReleaseBranch() {
-      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, done);
+      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, getNextVersion);
+    }
+
+    function getNextVersion() {
+      version.getNext(grunt, done);
     }
 
     (function start() {
@@ -108,8 +112,7 @@ module.exports = function (grunt) {
     }
 
     function pushReleaseTag() {
-      var gruntBumpReleaseVersion = 'v' + grunt.option('setversion');
-      gitHelper.push(grunt, process.cwd(), options.pushTo, gruntBumpReleaseVersion, done);
+      gitHelper.push(grunt, process.cwd(), options.pushTo, 'v' + grunt.option('releaseVersion'), done);
     }
 
     (function start() {

@@ -43,6 +43,7 @@ function _getVersion(optionName, optionOutput, message, grunt, done, mockInput) 
 
       // Set up output value and reset question values
       grunt.option(optionOutput, answers[optionName]);
+      grunt.option(optionName, answers[optionName]);
       releaseVersionQuestion.name = null;
       releaseVersionQuestion.message = null;
       done();
