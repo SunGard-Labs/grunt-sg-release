@@ -129,9 +129,9 @@ module.exports = function (grunt) {
       skipNpmInstall: false,
       developBranch: 'develop',
       masterBranch: 'master',
+      tempReleaseBranch: 'release',
       mergeToDevelopMsg: messages.mergeToMasterMsg,
       mergeToMasterMsg: messages.mergeToDevelopMsg,
-      tempReleaseBranch: 'release',
       developVersionCommitMsg: messages.developVersionCommitMsg,
       pushTo: 'upstream'
     });
