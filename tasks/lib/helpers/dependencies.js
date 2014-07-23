@@ -8,9 +8,9 @@ var exec = require('./exec');
 // ---
 
 
-function checkInstall(grunt, dir, command, done) {
+function checkInstall(grunt, dir, command, skipValidation, done) {
 
-  if (!grunt.option('no' + command)) {
+  if (!skipValidation && !grunt.option('no' + command)) {
     exec(command + ' install', {
       grunt: grunt,
       dir: dir,

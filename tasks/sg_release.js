@@ -15,6 +15,7 @@ module.exports = function (grunt) {
   // ---
 
 
+  var options;
   var releaseBranchName;
   var defaultDevelopBranch = 'develop';
   var defaultMasterBranch = 'master';
@@ -23,9 +24,6 @@ module.exports = function (grunt) {
   grunt.registerTask('prepare_sg_release', function () {
 
     var done = this.async();
-    var options = this.options({
-      tempReleaseBranch: defaultReleaseBranch
-    });
 
     function checkGit() {
       gitHelper.check(grunt);
@@ -33,11 +31,11 @@ module.exports = function (grunt) {
     }
 
     function checkNpmInstall() {
-      dependenciesHelper.checkInstall(grunt, process.cwd(), 'npm', checkBowerInstall);
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'npm', options.skipNpmInstall, checkBowerInstall);
     }
 
     function checkBowerInstall() {
-      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', getReleaseVersion);
+      dependenciesHelper.checkInstall(grunt, process.cwd(), 'bower', options.skipBowerInstall, getReleaseVersion);
     }
 
     function getReleaseVersion() {
@@ -62,12 +60,6 @@ module.exports = function (grunt) {
   grunt.registerTask('merge_sg_release', function () {
 
     var done = this.async();
-    var options = this.options({
-      developBranch: defaultDevelopBranch,
-      masterBranch: defaultMasterBranch,
-      mergeToDevelopMsg: messages.mergeToMasterMsg,
-      mergeToMasterMsg: messages.mergeToDevelopMsg
-    });
 
     function checkoutMaster() {
       gitHelper.checkout(grunt, process.cwd(), options.masterBranch, mergeFromTempReleaseBranch);
@@ -102,12 +94,6 @@ module.exports = function (grunt) {
   grunt.registerTask('finish_sg_release', function () {
 
     var done = this.async();
-    var options = this.options({
-      developBranch: defaultDevelopBranch,
-      masterBranch: defaultMasterBranch,
-      developVersionCommitMsg: messages.developVersionCommitMsg,
-      pushTo: 'origin'
-    });
 
     function commitDevelopmentVersion() {
       gitHelper.commit(grunt, process.cwd(), options.developVersionCommitMsg, pushDevelopBranch);
@@ -137,6 +123,17 @@ module.exports = function (grunt) {
 
 
   grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
+
+    options = this.options({
+      skipBowerInstall: false,
+      skipNpmInstall: false,
+      developBranch: defaultDevelopBranch,
+      masterBranch: defaultMasterBranch,
+      mergeToDevelopMsg: messages.mergeToMasterMsg,
+      mergeToMasterMsg: messages.mergeToDevelopMsg,
+      tempReleaseBranch: defaultReleaseBranch,
+      developVersionCommitMsg: messages.developVersionCommitMsg
+    });
 
     grunt.task.run('prepare_sg_release');
     grunt.task.run('bump');
