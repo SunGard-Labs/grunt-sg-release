@@ -130,8 +130,8 @@ module.exports = function (grunt) {
       developBranch: 'develop',
       masterBranch: 'master',
       tempReleaseBranch: 'release',
-      mergeToDevelopMsg: messages.mergeToMasterMsg,
-      mergeToMasterMsg: messages.mergeToDevelopMsg,
+      mergeToDevelopMsg: messages.mergeToDevelopMsg,
+      mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
       pushTo: 'upstream'
     });
