@@ -8,7 +8,7 @@ This task provides the standard workflow for creating releases on git repositori
 
 ### Requirements
 
-We require that `git` is installed and available as a system-wide command. **npm** and **Bower** are also required in order to validate HTML5 packages but you can disable this validation using the configurable options.
+In order to use this task you will need `git` installed and available as a system-wide command. **npm** and **Bower** are also required in order to validate HTML5 packages but you can disable this validation using the configurable options.
 
 ## Getting Started
 This plugin requires Grunt.
@@ -34,7 +34,8 @@ In your project's Gruntfile, add a section named `sg_release` to the data object
 grunt.initConfig({
   sg_release: {
     options: {
-      // Task-specific options go here.
+      developBranch: 'develop',
+      masterBranch: 'master'
     },
     your_target: {
       // Target-specific file lists and/or options go here.
@@ -98,4 +99,3 @@ _(Nothing yet)_
 
 ## License
 Copyright (c) 2014 SunGard. Licensed under the MIT license.
-
