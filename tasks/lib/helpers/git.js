@@ -50,9 +50,9 @@ function checkout(grunt, dir, branchName, done) {
 // ---
 
 
-function merge(grunt, dir, mergeFromBranch, msg, done) {
+function merge(grunt, dir, mergeFromBranch, msgPrefix, msg, done) {
 
-  exec('git merge --no-ff -m "' + msg + '" ' + mergeFromBranch, {
+  exec('git merge --no-ff -m "' + msgPrefix + ' ' + msg + '" ' + mergeFromBranch, {
     grunt: grunt,
     dir: dir,
     done: done
@@ -88,9 +88,9 @@ function deleteBranch(grunt, dir, branchName, done) {
 // ---
 
 
-function commit(grunt, dir, msg, done){
+function commit(grunt, dir, msgPrefix, msg, done){
 
-  exec('git commit -a -m "' + msg + '"', {
+  exec('git commit -a -m "' + msgPrefix + ' ' + msg + '"', {
     grunt: grunt,
     dir: dir,
     done: done

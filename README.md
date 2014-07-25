@@ -91,6 +91,12 @@ Default value: 'release'
 
 Name prefix of the branch used as a temporary release branch in your repository.
 
+#### options.commitMessagePrefix
+Type: `String`
+Default value: ''
+
+Prefix to be added before the commit messages below. It's just an empty string by default. Also note that a space will be always added between the prefix and the message.
+
 #### options.mergeToDevelopMsg
 Type: `String`
 Default value: 'Merge into develop'
@@ -147,6 +153,7 @@ grunt.initConfig({
       developBranch: 'develop',
       masterBranch: 'master',
       tempReleaseBranch: 'release',
+      commitMessagePrefix: '',
       mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master',
       developVersionCommitMsg: 'Increased version for development',

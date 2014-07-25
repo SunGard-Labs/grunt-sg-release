@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     }
 
     function mergeFromTempReleaseBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, checkoutDevelop);
+      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, checkoutDevelop);
     }
 
     function checkoutDevelop() {
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
     }
 
     function mergeIntoDevelopBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.mergeToMasterMsg, deleteTempReleaseBranch);
+      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, deleteTempReleaseBranch);
     }
 
     function deleteTempReleaseBranch() {
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
     var done = this.async();
 
     function commitDevelopmentVersion() {
-      gitHelper.commit(grunt, process.cwd(), options.developVersionCommitMsg, pushDevelopBranch);
+      gitHelper.commit(grunt, process.cwd(), options.commitMessagePrefix, options.developVersionCommitMsg, pushDevelopBranch);
     }
 
     function pushDevelopBranch() {
@@ -131,6 +131,7 @@ module.exports = function (grunt) {
       developBranch: 'develop',
       masterBranch: 'master',
       tempReleaseBranch: 'release',
+      commitMessagePrefix: '',
       mergeToDevelopMsg: messages.mergeToDevelopMsg,
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
