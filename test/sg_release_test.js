@@ -162,7 +162,7 @@ exports.sg_release = {
   testMergeIntoMaster: function (test) {
     test.expect(1);
 
-    gitHelper.merge(grunt, dir, releaseBranchName, messages.mergeToMasterMsg, function (stdout) {
+    gitHelper.merge(grunt, dir, releaseBranchName, 'PREFIX:', messages.mergeToMasterMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Merge made'), -1);
       test.done();
@@ -196,7 +196,7 @@ exports.sg_release = {
   testMergeIntoDevelop: function (test) {
     test.expect(1);
 
-    gitHelper.merge(grunt, dir, releaseBranchName, messages.mergeToDevelopMsg, function (stdout) {
+    gitHelper.merge(grunt, dir, releaseBranchName, 'PREFIX:', messages.mergeToDevelopMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Already up-to-date'), -1);
       test.done();
@@ -236,7 +236,7 @@ exports.sg_release = {
     grunt.file.write(dir + '/bower.json', testContent);
     grunt.file.write(dir + '/package.json', testContent);
 
-    gitHelper.commit(grunt, dir, messages.developVersionCommitMsg, function (stdout) {
+    gitHelper.commit(grunt, dir, 'PREFIX:', messages.developVersionCommitMsg, function (stdout) {
       // output should contain success commit msg
       test.notEqual(stdout.indexOf('2 files changed'), -1);
       test.done();

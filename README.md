@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.0.2
+version: 0.1.0
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -10,16 +10,25 @@ version: 0.0.2
 
 This task provides a standard workflow for creating releases on git repositories. It extends the [grunt-bump](https://github.com/vojtajina/grunt-bump) plugin task in order to provide some of the essential release steps. Getting to know both tasks will help a lot when you want to configure your custom releases.
 
-### Requirements
+## Requirements
+
+### Grunt
+
+First of all, this plugin requires Grunt. If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins.
+
+### Git, Bower and npm
 
 In order to use this task you will need `git` installed and available as a system-wide command. **npm** and **Bower** are also required in order to validate HTML5 packages but you can disable this validation using the configurable options.
 
+### Gitflow branches
+
 This release task was created to work with the [Gitflow Workflow](https://www.atlassian.com/git/workflows#!workflow-gitflow). If your Git repository is not using something similar, chances are that you do not should use this plugin.
 
-## Getting Started
-This plugin requires Grunt.
+Your Git repository will need to have both *develop* and *master* branches created and pushed to the remote server. Also, do not try to recreate existing versions, this will break [grunt-bump](https://github.com/vojtajina/grunt-bump) release cycle.
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+## Getting Started
+
+Once you're familiar with all the requirements, you may install this plugin with this command:
 
 ```shell
 npm install grunt-sg-release --save-dev
@@ -82,6 +91,12 @@ Default value: 'release'
 
 Name prefix of the branch used as a temporary release branch in your repository.
 
+#### options.commitMessagePrefix
+Type: `String`
+Default value: ''
+
+Prefix to be added before the commit messages below. It's just an empty string by default. Also note that a space will be always added between the prefix and the message.
+
 #### options.mergeToDevelopMsg
 Type: `String`
 Default value: 'Merge into develop'
@@ -138,6 +153,7 @@ grunt.initConfig({
       developBranch: 'develop',
       masterBranch: 'master',
       tempReleaseBranch: 'release',
+      commitMessagePrefix: '',
       mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master',
       developVersionCommitMsg: 'Increased version for development',
