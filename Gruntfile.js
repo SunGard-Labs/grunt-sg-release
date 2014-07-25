@@ -73,7 +73,7 @@ module.exports = function (grunt) {
 
   // Release task, it is a good example to show people how to create
   // a better alias that will also run tests before the release
-  grunt.registerTask('release', ['jshint', 'test', 'sg_release:run']);
+  grunt.registerTask('release', ['sg_release:run']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
