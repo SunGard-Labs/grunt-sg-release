@@ -14,7 +14,7 @@ This task provides a standard workflow for creating releases on git repositories
 
 ### Grunt
 
-First of all, this plugin requires Grunt. If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+First of all, this plugin requires Grunt. If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins.
 
 ### Git, Bower and npm
 
@@ -27,6 +27,8 @@ This release task was created to work with the [Gitflow Workflow](https://www.at
 Your Git repository will need to have both *develop* and *master* branches created and pushed to the remote server. Also, do not try to recreate existing versions, this will break [grunt-bump](https://github.com/vojtajina/grunt-bump) release cycle.
 
 ## Getting Started
+
+Once you're familiar with all the requirements, you may install this plugin with this command:
 
 ```shell
 npm install grunt-sg-release --save-dev
