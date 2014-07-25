@@ -4,6 +4,8 @@
 
 version: 0.0.1
 
+[![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
+
 ## About
 
 This task provides the standard workflow for creating releases on git repositories.
