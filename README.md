@@ -158,7 +158,7 @@ grunt.initConfig({
     },
     custom: {
       pushTo: 'origin',
-      files: ['-a']
+      commitFiles: ['-a']
     }
   }
 })
