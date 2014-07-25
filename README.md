@@ -8,11 +8,13 @@ version: 0.0.1
 
 ## About
 
-This task provides the standard workflow for creating releases on git repositories.
+This task provides a standard workflow for creating releases on git repositories. It extends the [grunt-bump](https://github.com/vojtajina/grunt-bump) plugin task in order to provide some of the essential release steps. Getting to know both tasks will help a lot when you want to configure your custom releases.
 
 ### Requirements
 
 In order to use this task you will need `git` installed and available as a system-wide command. **npm** and **Bower** are also required in order to validate HTML5 packages but you can disable this validation using the configurable options.
+
+This release task was created to work with the [Gitflow Workflow](https://www.atlassian.com/git/workflows#!workflow-gitflow). If your Git repository is not using something similar, chances are that you do not should use this plugin.
 
 ## Getting Started
 This plugin requires Grunt.
@@ -104,6 +106,10 @@ Default value: 'upstream'
 
 Reference to the git remote repository to push to.
 
+#### grunt-bump options
+
+Additionally to all the available options listed above, all the [grunt-bump](https://github.com/vojtajina/grunt-bump) options are available to be configured when using this task.
+
 ### Usage Examples
 
 #### Default Options
@@ -119,14 +125,40 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+
+In this example all possible configurable values are listed with their default values inside the **options** property of **sg_release** task. In addition some custom options are used to configure a **custom** target.
 
 ```js
 grunt.initConfig({
   sg_release: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      // sg_release specific properties
+      skipBowerInstall: false,
+      skipBowerInstall: false,
+      developBranch: 'develop',
+      masterBranch: 'master',
+      tempReleaseBranch: 'release',
+      mergeToDevelopMsg: 'Merge into develop',
+      mergeToMasterMsg: 'Merge into master',
+      developVersionCommitMsg: 'Increased version for development',
+      // pushTo is an overlapped property, required by both sg_release and grunt-bump
+      pushTo: 'upstream',
+      // grunt-bump specific options
+      bumpVersion: true,
+      files: ['package.json'],
+      updateConfigs: [], // array of config properties to update (with files)
+      commit: true,
+      commitMessage: 'Release v%VERSION%',
+      commitFiles: ['package.json'], // '-a' for all files
+      createTag: true,
+      tagName: 'v%VERSION%',
+      tagMessage: 'Version %VERSION%',
+      push: true,
+      gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
+    },
+    custom: {
+      pushTo: 'origin',
+      files: ['-a']
     }
   }
 })
@@ -137,3 +169,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## License
 Copyright (c) 2014 SunGard. Licensed under the MIT license.
+
