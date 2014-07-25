@@ -46,31 +46,71 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.skipBowerInstall
+Type: `Boolean`
+Default value: false
+
+Skip the execution of `bower install` command
+
+#### options.skipNpmInstall
+Type: `Boolean`
+Default value: false
+
+Skip the execution of `npm install` command
+
+#### options.developBranch
 Type: `String`
-Default value: `',  '`
+Default value: 'develop'
 
-A string value that is used to do something with whatever.
+Name of the branch used as a "development branch" in your repository.
 
-#### options.punctuation
+#### options.masterBranch
 Type: `String`
-Default value: `'.'`
+Default value: 'master'
 
-A string value that is used to do something else with whatever else.
+Name of the branch used as a "master branch" in your repository.
+
+#### options.tempReleaseBranch
+Type: `String`
+Default value: 'release'
+
+Name prefix of the branch used as a temporary release branch in your repository.
+
+#### options.mergeToDevelopMsg
+Type: `String`
+Default value: 'Merge into develop'
+
+Commit message to be used when merging changes into the develop branch.
+
+#### options.mergeToMasterMsg
+Type: `String`
+Default value: 'Merge into master'
+
+Commit message to be used when merging changes into the master branch.
+
+#### options.developVersionCommitMsg
+Type: `String`
+Default value: 'Increased version for development'
+
+Commit message to be used in the development version update commit.
+
+#### options.pushTo
+Type: `String`
+Default value: 'upstream'
+
+Reference to the git remote repository to push to.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to create the release. Please refer to the **Options** section above to get to know  the default values.
 
 ```js
 grunt.initConfig({
   sg_release: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    options: {}
+    run: {}
+  }
 })
 ```
 
@@ -83,19 +123,13 @@ grunt.initConfig({
     options: {
       separator: ': ',
       punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    }
+  }
 })
 ```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2014 SunGard. Licensed under the MIT license.
