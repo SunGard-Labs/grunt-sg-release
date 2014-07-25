@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.1.0
+version: 0.1.1-rc
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
