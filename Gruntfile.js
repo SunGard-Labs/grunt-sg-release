@@ -48,18 +48,13 @@ module.exports = function (grunt) {
         masterBranch: 'master',
         files: [
           'package.json',
-          'bower.json',
           'README.md'
         ],
         commitMessage: 'Release v%VERSION%',
         commitFiles: ['-a'], // '-a' for all files
-        createTag: true,
         pushTo: 'origin'
       },
-      tests: {
-        developBranch: 'develop',
-        masterBranch: 'master'
-      }
+      run: {}
     },
 
     // Unit tests.
@@ -74,6 +69,10 @@ module.exports = function (grunt) {
   grunt.loadTasks('test/tasks');
 
   grunt.registerTask('test', ['clean', 'mkdir', 'setup_test_folder', 'nodeunit']);
+
+  // Release task, it is a good example to show people how to create
+  // a better alias that will also run tests before the release
+  grunt.registerTask('release', ['jshint', 'test', 'sg_release:run']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
