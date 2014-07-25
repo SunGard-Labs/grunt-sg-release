@@ -2,6 +2,8 @@
 
 > The SunGard standard release script for HTML5 projects.
 
+version: 0.0.1
+
 ## About
 
 This task provides the standard workflow for creating releases on git repositories.
