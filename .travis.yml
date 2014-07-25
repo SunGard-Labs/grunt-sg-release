@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - '0.10'
-before_install: 
+before_install:
   - git config --global user.email "test@test.com"
   - git config --global user.name "Travis Test"
   - npm install -g grunt-cli
