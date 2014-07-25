@@ -77,10 +77,10 @@ exports.sg_release = {
     test.expect(0);
 
     function checkBowerInstall() {
-      dependenciesHelper.checkInstall(grunt, dir, 'bower', test.done);
+      dependenciesHelper.checkInstall(grunt, dir, 'bower', false, test.done);
     }
 
-    dependenciesHelper.checkInstall(grunt, dir, 'npm', checkBowerInstall);
+    dependenciesHelper.checkInstall(grunt, dir, 'npm', false, checkBowerInstall);
   },
 
 
