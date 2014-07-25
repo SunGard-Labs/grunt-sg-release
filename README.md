@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.0.1
+version: 0.0.2
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -158,7 +158,7 @@ grunt.initConfig({
     },
     custom: {
       pushTo: 'origin',
-      files: ['-a']
+      commitFiles: ['-a']
     }
   }
 })
