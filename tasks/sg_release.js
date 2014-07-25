@@ -2,17 +2,18 @@
 
 
 var inquirer = require('inquirer');
+var extendGruntPlugin = require('extend-grunt-plugin');
+
 var gitHelper = require('./lib/helpers/git');
 var dependenciesHelper = require('./lib/helpers/dependencies');
 var messages = require('./lib/messages');
 var version = require('./lib/version');
 
+
+// ---
+
+
 module.exports = function (grunt) {
-
-  grunt.task.loadNpmTasks('grunt-bump');
-
-
-  // ---
 
 
   var options;
@@ -134,6 +135,11 @@ module.exports = function (grunt) {
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
       pushTo: 'upstream'
+    });
+
+    extendGruntPlugin(grunt, require('grunt-bump'), {
+      'bump': options,
+      'bump-only': options
     });
 
     grunt.task.run('prepare_sg_release');
