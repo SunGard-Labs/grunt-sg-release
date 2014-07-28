@@ -1,6 +1,6 @@
 {
   "name": "grunt-sg-release",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The SunGard standard release script for HTML5 projects.",
   "repository": "",
   "author": "SunGard",
@@ -16,7 +16,8 @@
     "grunt-bump": "git+https://github.com/vojtajina/grunt-bump.git#master",
     "inquirer": "0.5.1",
     "semver": "2.3.1",
-    "which": "1.0.5"
+    "which": "1.0.5",
+    "extend-grunt-plugin": "0.0.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
