@@ -159,6 +159,16 @@ grunt.initConfig({
 })
 ```
 
+## Setting release version number
+
+When running the task you will be prompted to enter the release version number. Additionally, you will also be prompted to enter a version number to be used on the **develop** branch.
+
+It is possible to specify a `releaseVersion` and `developVersion` on command line in order to skip these question and use the provided values when invoking the task. See the example below:
+
+```shell
+grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
