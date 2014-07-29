@@ -54,8 +54,7 @@ module.exports = function (grunt) {
         commitMessage: 'Release v%VERSION%',
         commitFiles: ['-a'], // '-a' for all files
         pushTo: 'origin'
-      },
-      run: {}
+      }
     },
 
     // Unit tests.
@@ -73,7 +72,7 @@ module.exports = function (grunt) {
 
   // Release task, it is a good example to show people how to create
   // a better alias that will also run tests before the release
-  grunt.registerTask('release', ['sg_release:run']);
+  grunt.registerTask('release', ['sg_release']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
