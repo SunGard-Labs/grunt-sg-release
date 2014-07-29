@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.1.1
+version: 0.2.0
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -51,11 +51,8 @@ grunt.initConfig({
     options: {
       developBranch: 'develop',
       masterBranch: 'master'
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+    }
+  }
 })
 ```
 
@@ -125,23 +122,9 @@ Reference to the git remote repository to push to.
 
 Additionally to all the available options listed above, all the [grunt-bump](https://github.com/vojtajina/grunt-bump) options are available to be configured when using this task.
 
-### Usage Examples
+### Usage Example
 
-#### Default Options
-In this example, the default options are used to create the release. Please refer to the **Options** section above to get to know  the default values.
-
-```js
-grunt.initConfig({
-  sg_release: {
-    options: {}
-    run: {}
-  }
-})
-```
-
-#### Custom Options
-
-In this example all possible configurable values are listed with their default values inside the **options** property of **sg_release** task. In addition some custom options are used to configure a **custom** target.
+In this example all possible configurable values are listed with their default values inside the **options** property of **sg_release** task. Feel free to modify them inside your Gruntfile to better suit your project configuration.
 
 ```js
 grunt.initConfig({
@@ -171,13 +154,19 @@ grunt.initConfig({
       tagMessage: 'Version %VERSION%',
       push: true,
       gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
-    },
-    custom: {
-      pushTo: 'origin',
-      commitFiles: ['-a']
     }
   }
 })
+```
+
+## Setting release version number
+
+When running the task you will be prompted to enter the release version number. Additionally, you will also be prompted to enter a version number to be used on the **develop** branch.
+
+It is possible to specify a `releaseVersion` and `developVersion` on command line in order to skip these question and use the provided values when invoking the task. See the example below:
+
+```shell
+grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
 ```
 
 ## Contributing

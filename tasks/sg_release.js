@@ -123,7 +123,7 @@ module.exports = function (grunt) {
   // ---
 
 
-  grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
+  grunt.registerTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     options = this.options({
       skipBowerInstall: false,
