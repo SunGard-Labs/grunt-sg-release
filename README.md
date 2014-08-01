@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.2.0
+version: 0.2.1
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -152,7 +152,7 @@ grunt.initConfig({
       createTag: true,
       tagName: 'v%VERSION%',
       tagMessage: 'Version %VERSION%',
-      push: true,
+      push: false, // push during the first bump phase is deactivated by default
       gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
     }
   }
