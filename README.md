@@ -152,7 +152,7 @@ grunt.initConfig({
       createTag: true,
       tagName: 'v%VERSION%',
       tagMessage: 'Version %VERSION%',
-      push: true,
+      push: false, // push during the first bump phase is deactivated by default
       gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
     }
   }
