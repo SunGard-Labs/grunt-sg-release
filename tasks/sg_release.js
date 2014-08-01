@@ -135,7 +135,8 @@ module.exports = function (grunt) {
       mergeToDevelopMsg: messages.mergeToDevelopMsg,
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
-      pushTo: 'upstream'
+      pushTo: 'upstream',
+      push: false // By default push should happen only at the end, during finish_sg_release subtask
     });
 
     extendGruntPlugin(grunt, require('grunt-bump'), {
