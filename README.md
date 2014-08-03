@@ -49,10 +49,18 @@ In your project's Gruntfile, add a section named `sg_release` to the data object
 grunt.initConfig({
   sg_release: {
     options: {
+      skipBowerInstall: true,
       developBranch: 'develop',
-      masterBranch: 'master'
+      masterBranch: 'master',
+      files: [
+        'package.json',
+        'README.md'
+      ],
+      commitMessage: 'Release v%VERSION%',
+      commitFiles: ['-a'], // '-a' for all files
+      pushTo: 'origin'
     }
-  }
+  },
 })
 ```
 
