@@ -1,8 +1,11 @@
 {
   "name": "grunt-sg-release",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The SunGard standard release script for HTML5 projects.",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SunGard-Labs/grunt-sg-release.git"
+  },
   "author": "SunGard",
   "keywords": [
     "gruntplugin",
@@ -30,7 +33,6 @@
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-nodeunit": "~0.3.0",
     "grunt-mkdir": "^0.1.2",
-    "extend-grunt-plugin": "0.0.1",
     "hooker": "0.2.3",
     "jshint-stylish": "~0.1.5",
     "load-grunt-tasks": "~0.3.0"

@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.2.1
+version: 0.2.2
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -49,10 +49,18 @@ In your project's Gruntfile, add a section named `sg_release` to the data object
 grunt.initConfig({
   sg_release: {
     options: {
+      skipBowerInstall: true,
       developBranch: 'develop',
-      masterBranch: 'master'
+      masterBranch: 'master',
+      files: [
+        'package.json',
+        'README.md'
+      ],
+      commitMessage: 'Release v%VERSION%',
+      commitFiles: ['-a'], // '-a' for all files
+      pushTo: 'origin'
     }
-  }
+  },
 })
 ```
 
