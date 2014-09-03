@@ -21,7 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "grunt-bump": "git+https://github.com/vojtajina/grunt-bump.git#master",
+    "grunt-bump": "0.0.15",
     "inquirer": "0.5.1",
     "semver": "2.3.1",
     "which": "1.0.5",
