@@ -2,7 +2,7 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.2.3
+version: 0.2.4
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
 
@@ -148,8 +148,9 @@ grunt.initConfig({
       mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master',
       developVersionCommitMsg: 'Increased version for development',
-      // pushTo is an overlapped property, required by both sg_release and grunt-bump
+      // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
       pushTo: 'upstream',
+      tagName: 'v%VERSION%',
       // grunt-bump specific options
       bumpVersion: true,
       files: ['package.json'],
@@ -158,7 +159,6 @@ grunt.initConfig({
       commitMessage: 'Release v%VERSION%',
       commitFiles: ['package.json'], // '-a' for all files
       createTag: true,
-      tagName: 'v%VERSION%',
       tagMessage: 'Version %VERSION%',
       push: false, // push during the first bump phase is deactivated by default
       gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
