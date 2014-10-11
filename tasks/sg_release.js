@@ -110,7 +110,11 @@ module.exports = function (grunt) {
     }
 
     function pushReleaseTag() {
-      gitHelper.push(grunt, process.cwd(), options.pushTo, 'v' + grunt.option('releaseVersion'), done);
+      var tagNameOption = options.tagName;
+      var releaseVersion = grunt.option('releaseVersion');
+      var tagName = tagNameOption.replace('%VERSION%', releaseVersion);
+
+      gitHelper.push(grunt, process.cwd(), options.pushTo, tagName, done);
     }
 
     (function start() {
@@ -135,6 +139,7 @@ module.exports = function (grunt) {
       mergeToDevelopMsg: messages.mergeToDevelopMsg,
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
+      tagName: 'v%VERSION%',
       pushTo: 'upstream',
       push: false // By default push should happen only at the end, during finish_sg_release subtask
     });
