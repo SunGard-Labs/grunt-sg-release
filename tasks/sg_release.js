@@ -149,19 +149,19 @@ module.exports = function (grunt) {
       'bump-only': options
     });
 
-    if (options.finishOnly != true) {
+    if (options.finishOnly !== true && options.finishOnly !== "true") {
       grunt.task.run('prepare_sg_release');
       grunt.task.run('bump');
     }
     
-    if (options.finishOnly == true) {
+    if (options.finishOnly === true || options.finishOnly === "true") {
       // get the version again since we cannot call prepare_sg_release here
       version.getRelease(grunt, function () {
         releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
       });
     }
 
-    if (options.startOnly != true) {
+    if (options.startOnly !== true && options.startOnly !== "true") {
       grunt.task.run('merge_sg_release');
       grunt.task.run('bump-only');
       grunt.task.run('finish_sg_release');
