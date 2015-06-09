@@ -126,6 +126,18 @@ Default value: 'upstream'
 
 Reference to the git remote repository to push to.
 
+#### options.startOnly
+Type: `Boolean`
+Default value: 'false'
+
+If true, the task will ony create the release branch and change the version. Useful for e.g. hotfixes that are done by multiple participants.
+
+#### options.finishOnly
+Type: `Boolean`
+Default value: 'false'
+
+If true, the task will finish a release that was started with startOnly.
+
 #### grunt-bump options
 
 Additionally to all the available options listed above, all the [grunt-bump](https://github.com/vojtajina/grunt-bump) options are available to be configured when using this task.
@@ -176,6 +188,9 @@ It is possible to specify a `releaseVersion` and `developVersion` on command lin
 ```shell
 grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
 ```
+
+## Creating a hotfix
+A hotfix follows the same flow as a release but it usually branches off the master branch. All you have to do is to first checkout the master branch, then call the sg_release task. 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
