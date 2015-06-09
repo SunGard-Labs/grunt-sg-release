@@ -127,7 +127,7 @@ module.exports = function (grunt) {
   // ---
 
 
-  grunt.registerTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
+  grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     options = this.options({
       skipBowerInstall: false,
@@ -149,12 +149,23 @@ module.exports = function (grunt) {
       'bump-only': options
     });
 
-    grunt.task.run('prepare_sg_release');
-    grunt.task.run('bump');
-    grunt.task.run('merge_sg_release');
-    grunt.task.run('bump-only');
-    grunt.task.run('finish_sg_release');
+    if (options.finishOnly != true) {
+      grunt.task.run('prepare_sg_release');
+      grunt.task.run('bump');
+    }
+    
+    if (options.finishOnly == true) {
+      // get the version again since we cannot call prepare_sg_release here
+      version.getRelease(grunt, function () {
+        releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
+      });
+    }
 
+    if (options.startOnly != true) {
+      grunt.task.run('merge_sg_release');
+      grunt.task.run('bump-only');
+      grunt.task.run('finish_sg_release');
+    }
   });
 
 };

@@ -52,7 +52,7 @@ function checkout(grunt, dir, branchName, done) {
 
 function merge(grunt, dir, mergeFromBranch, msgPrefix, msg, done) {
 
-  exec('git merge --no-ff -m "' + msgPrefix + ' ' + msg + '" ' + mergeFromBranch, {
+  exec('git merge --no-ff --strategy-option theirs -m "' + msgPrefix + ' ' + msg + '" ' + mergeFromBranch, {
     grunt: grunt,
     dir: dir,
     done: done
