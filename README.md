@@ -5,6 +5,7 @@
 version: 0.2.5-rc
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
+[![Join the chat at https://gitter.im/SunGard-Labs/grunt-sg-release](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SunGard-Labs/grunt-sg-release?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About
 
@@ -182,4 +183,3 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## License
 Copyright (c) 2014 SunGard. Licensed under the MIT license.
-
