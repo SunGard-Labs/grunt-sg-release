@@ -41,7 +41,7 @@ module.exports = function (grunt) {
     }
 
     function createTempReleaseBranch() {
-      releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
+      releaseBranchName = options.tempReleaseBranch + '/' + grunt.option('setversion');
       gitHelper.createBranch(grunt, process.cwd(), releaseBranchName, done);
     }
 
