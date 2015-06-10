@@ -132,11 +132,66 @@ Default value: 'false'
 
 If true, the task will ony create the release branch and change the version. Useful for e.g. hotfixes that are done by multiple participants.
 
+A sample configuration for a release & hotfix approach could be : 
+
+```js
+grunt.initConfig({
+  sg_release: {
+        options: {
+            skipBowerInstall: true,
+            skipNpmInstall: true,
+            files: [
+                'package.json',
+                'bower.json'
+            ],
+            commitFiles: ['-a'],
+            tagName: '%VERSION%',
+            developBranch: 'develop',
+            masterBranch: 'master',
+            pushTo: "origin"
+        },
+        release: {
+            options: {
+                commitMessage: 'Release v%VERSION%',
+                tempReleaseBranch: 'release',
+                push: false,
+                createTag: true
+            }
+        },
+        hotfixStart: {
+            options: {
+                commitMessage: 'Hotfix ' + grunt.option('releaseVersion'),
+                tempReleaseBranch: 'hotfix',
+                push: true,
+                startOnly: true
+            }
+        },
+        hotfixFinish: {
+            options: {
+                commitMessage: 'Hotfix ' + grunt.option('releaseVersion'),
+                tempReleaseBranch: 'hotfix',
+                finishOnly: true,
+                deleteRemoteBranch : true
+            }
+        }
+    }
+});
+```
+A release can then be made with 'grunt sg_release:release --releaseVersion 2.0.0 --developVersion 2.1.0-SNAPSHOT'
+A hotfix can be started with 'grunt sg_release:hotfixStart --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT' and finished  with 'grunt sg_release:hotfixFinish --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT'
+
+
 #### options.finishOnly
 Type: `Boolean`
 Default value: 'false'
 
 If true, the task will finish a release that was started with startOnly.
+
+#### options.deleteRemoteBranch
+Type: `Boolean`
+Default value: 'false'
+
+If true, the branch pushed to the remote earlier will get deleted. 
 
 #### grunt-bump options
 
@@ -160,6 +215,9 @@ grunt.initConfig({
       mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master',
       developVersionCommitMsg: 'Increased version for development',
+      startOnly: false,
+      finishOnly: false,
+      deleteRemoteBranch: false,
       // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
       pushTo: 'upstream',
       tagName: 'v%VERSION%',

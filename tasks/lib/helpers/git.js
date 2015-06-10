@@ -88,7 +88,20 @@ function deleteBranch(grunt, dir, branchName, done) {
 // ---
 
 
-function commit(grunt, dir, msgPrefix, msg, done){
+function deleteRemoteBranch(grunt, dir, pushTo, branchName, done) {
+
+  exec('git push ' + pushTo + ' :' + branchName, {
+    grunt: grunt,
+    dir: dir,
+    done: done
+  });
+
+}
+
+// ---
+
+
+function commit(grunt, dir, msgPrefix, msg, done) {
 
   exec('git commit -a -m "' + msgPrefix + ' ' + msg + '"', {
     grunt: grunt,
@@ -102,7 +115,7 @@ function commit(grunt, dir, msgPrefix, msg, done){
 // ---
 
 
-function push(grunt, dir, remote, value, done){
+function push(grunt, dir, remote, value, done) {
 
   exec('git push ' + remote + ' ' + value, {
     grunt: grunt,
@@ -123,6 +136,7 @@ module.exports = {
   commit: commit,
   createBranch: createBranch,
   deleteBranch: deleteBranch,
+  deleteRemoteBranch: deleteRemoteBranch,
   merge: merge,
   push: push
 };

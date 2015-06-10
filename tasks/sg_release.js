@@ -76,7 +76,11 @@ module.exports = function (grunt) {
     }
 
     function deleteTempReleaseBranch() {
-      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, getNextVersion);
+      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, options.deleteRemoteBranch === true ? deleteTempRemoteReleaseBranch : getNextVersion);
+    }
+    
+    function deleteTempRemoteReleaseBranch() {
+      gitHelper.deleteRemoteBranch(grunt, process.cwd(), options.pushTo, releaseBranchName, getNextVersion);
     }
 
     function getNextVersion() {
