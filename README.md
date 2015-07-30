@@ -58,7 +58,8 @@ grunt.initConfig({
       ],
       commitMessage: 'Release v%VERSION%',
       commitFiles: ['-a'], // '-a' for all files
-      pushTo: 'origin'
+      pushTo: 'origin',
+      mergeOptions: ''
     }
   },
 })
@@ -125,6 +126,12 @@ Type: `String`
 Default value: 'upstream'
 
 Reference to the git remote repository to push to.
+
+#### options.mergeOptions
+Type : `String`
+Default value: ''
+
+Merge options are applied during the merge of one branch into another, e.g. for automatically applying the option to always auto-merge 'theirs' you can pass '--strategy-option theirs', see http://git-scm.com/docs/git-merge
 
 #### options.startOnly
 Type: `Boolean`

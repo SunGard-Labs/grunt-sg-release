@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     }
 
     function mergeFromTempReleaseBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, checkoutDevelop);
+      gitHelper.merge(grunt, process.cwd(), options.mergeOptions, releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, checkoutDevelop);
     }
 
     function checkoutDevelop() {
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
     }
 
     function mergeIntoDevelopBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToDevelopMsg, deleteTempReleaseBranch);
+      gitHelper.merge(grunt, process.cwd(), options.mergeOptions, releaseBranchName, options.commitMessagePrefix, options.mergeToDevelopMsg, deleteTempReleaseBranch);
     }
 
     function deleteTempReleaseBranch() {
@@ -143,9 +143,10 @@ module.exports = function (grunt) {
       mergeToDevelopMsg: messages.mergeToDevelopMsg,
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
-      tagName: 'v%VERSION%',
+      tagName: '%VERSION%',
       pushTo: 'upstream',
-      push: false // By default push should happen only at the end, during finish_sg_release subtask
+      push: false, // By default push should happen only at the end, during finish_sg_release subtask
+      mergeOptions: ''
     });
 
     extendGruntPlugin(grunt, require('grunt-bump'), {
@@ -161,7 +162,7 @@ module.exports = function (grunt) {
     if (options.finishOnly === true || options.finishOnly === "true") {
       // get the version again since we cannot call prepare_sg_release here
       version.getRelease(grunt, function () {
-        releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
+        releaseBranchName = options.tempReleaseBranch + '/' + grunt.option('setversion');
       });
     }
 
