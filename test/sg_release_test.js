@@ -162,7 +162,7 @@ exports.sg_release = {
   testMergeIntoMaster: function (test) {
     test.expect(1);
 
-    gitHelper.merge(grunt, dir, releaseBranchName, 'PREFIX:', messages.mergeToMasterMsg, function (stdout) {
+    gitHelper.merge(grunt, dir, "", releaseBranchName, 'PREFIX:', messages.mergeToMasterMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Merge made'), -1);
       test.done();
@@ -196,7 +196,7 @@ exports.sg_release = {
   testMergeIntoDevelop: function (test) {
     test.expect(1);
 
-    gitHelper.merge(grunt, dir, releaseBranchName, 'PREFIX:', messages.mergeToDevelopMsg, function (stdout) {
+    gitHelper.merge(grunt, dir, "", releaseBranchName, 'PREFIX:', messages.mergeToDevelopMsg, function (stdout) {
       // output should contain success message
       test.notEqual(stdout.indexOf('Already up-to-date'), -1);
       test.done();
