@@ -1,6 +1,6 @@
 {
   "name": "grunt-sg-release",
-  "version": "1.2.0",
+  "version": "1.2.1-rc",
   "description": "The SunGard standard release script for HTML5 projects.",
   "repository": {
     "type": "git",
