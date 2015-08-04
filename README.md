@@ -49,18 +49,20 @@ In your project's Gruntfile, add a section named `sg_release` to the data object
 ```js
 grunt.initConfig({
   sg_release: {
-    options: {
-      skipBowerInstall: true,
-      developBranch: 'develop',
-      masterBranch: 'master',
-      files: [
-        'package.json',
-        'README.md'
-      ],
-      commitMessage: 'Release v%VERSION%',
-      commitFiles: ['-a'], // '-a' for all files
-      pushTo: 'origin',
-      mergeOptions: ''
+    myTarget: {
+      options: {
+        skipBowerInstall: true,
+        developBranch: 'develop',
+        masterBranch: 'master',
+        files: [
+          'package.json',
+          'README.md'
+        ],
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['-a'], // '-a' for all files
+        pushTo: 'origin',
+        mergeOptions: ''
+      }
     }
   },
 })
@@ -140,7 +142,7 @@ Default value: 'false'
 
 If true, the task will ony create the release branch and change the version. Useful for e.g. hotfixes that are done by multiple participants.
 
-A sample configuration for a release & hotfix approach could be : 
+A sample configuration for a release & hotfix approach could be :
 
 ```js
 grunt.initConfig({
@@ -185,8 +187,8 @@ grunt.initConfig({
     }
 });
 ```
-A release can then be made with 'grunt sg_release:release --releaseVersion 2.0.0 --developVersion 2.1.0-SNAPSHOT'
-A hotfix can be started with 'grunt sg_release:hotfixStart --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT' and finished  with 'grunt sg_release:hotfixFinish --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT'
+
+A release can then be made with `grunt sg_release:release --releaseVersion 2.0.0 --developVersion 2.1.0-SNAPSHOT`. A hotfix can be started with `grunt sg_release:hotfixStart --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT` and finished with `grunt sg_release:hotfixFinish --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT`.
 
 
 #### options.finishOnly
@@ -199,7 +201,7 @@ If true, the task will finish a release that was started with startOnly.
 Type: `Boolean`
 Default value: 'false'
 
-If true, the branch pushed to the remote earlier will get deleted. 
+If true, the branch pushed to the remote earlier will get deleted.
 
 #### grunt-bump options
 
@@ -256,7 +258,7 @@ grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
 ```
 
 ## Creating a hotfix
-A hotfix follows the same flow as a release but it usually branches off the master branch. All you have to do is to first checkout the master branch, then call the sg_release task. 
+A hotfix follows the same flow as a release but it usually branches off the master branch. All you have to do is to first checkout the master branch, then call the sg_release task.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
