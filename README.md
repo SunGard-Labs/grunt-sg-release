@@ -2,9 +2,10 @@
 
 > The SunGard standard release script for HTML5 projects.
 
-version: 0.2.4
+version: 1.2.0
 
 [![Build Status](https://travis-ci.org/SunGard-Labs/grunt-sg-release.svg?branch=master)](https://travis-ci.org/SunGard-Labs/grunt-sg-release)
+[![Join the chat at https://gitter.im/SunGard-Labs/grunt-sg-release](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SunGard-Labs/grunt-sg-release?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About
 
@@ -48,17 +49,20 @@ In your project's Gruntfile, add a section named `sg_release` to the data object
 ```js
 grunt.initConfig({
   sg_release: {
-    options: {
-      skipBowerInstall: true,
-      developBranch: 'develop',
-      masterBranch: 'master',
-      files: [
-        'package.json',
-        'README.md'
-      ],
-      commitMessage: 'Release v%VERSION%',
-      commitFiles: ['-a'], // '-a' for all files
-      pushTo: 'origin'
+    myTarget: {
+      options: {
+        skipBowerInstall: true,
+        developBranch: 'develop',
+        masterBranch: 'master',
+        files: [
+          'package.json',
+          'README.md'
+        ],
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['-a'], // '-a' for all files
+        pushTo: 'origin',
+        mergeOptions: ''
+      }
     }
   },
 })
@@ -126,6 +130,79 @@ Default value: 'upstream'
 
 Reference to the git remote repository to push to.
 
+#### options.mergeOptions
+Type : `String`
+Default value: ''
+
+Merge options are applied during the merge of one branch into another, e.g. for automatically applying the option to always auto-merge 'theirs' you can pass '--strategy-option theirs', see http://git-scm.com/docs/git-merge
+
+#### options.startOnly
+Type: `Boolean`
+Default value: 'false'
+
+If true, the task will ony create the release branch and change the version. Useful for e.g. hotfixes that are done by multiple participants.
+
+A sample configuration for a release & hotfix approach could be :
+
+```js
+grunt.initConfig({
+  sg_release: {
+        options: {
+            skipBowerInstall: true,
+            skipNpmInstall: true,
+            files: [
+                'package.json',
+                'bower.json'
+            ],
+            commitFiles: ['-a'],
+            tagName: '%VERSION%',
+            developBranch: 'develop',
+            masterBranch: 'master',
+            pushTo: "origin"
+        },
+        release: {
+            options: {
+                commitMessage: 'Release v%VERSION%',
+                tempReleaseBranch: 'release',
+                push: false,
+                createTag: true
+            }
+        },
+        hotfixStart: {
+            options: {
+                commitMessage: 'Hotfix ' + grunt.option('releaseVersion'),
+                tempReleaseBranch: 'hotfix',
+                push: true,
+                startOnly: true
+            }
+        },
+        hotfixFinish: {
+            options: {
+                commitMessage: 'Hotfix ' + grunt.option('releaseVersion'),
+                tempReleaseBranch: 'hotfix',
+                finishOnly: true,
+                deleteRemoteBranch : true
+            }
+        }
+    }
+});
+```
+
+A release can then be made with `grunt sg_release:release --releaseVersion 2.0.0 --developVersion 2.1.0-SNAPSHOT`. A hotfix can be started with `grunt sg_release:hotfixStart --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT` and finished with `grunt sg_release:hotfixFinish --releaseVersion 2.0.1 --developVersion 2.1.0-SNAPSHOT`.
+
+
+#### options.finishOnly
+Type: `Boolean`
+Default value: 'false'
+
+If true, the task will finish a release that was started with startOnly.
+
+#### options.deleteRemoteBranch
+Type: `Boolean`
+Default value: 'false'
+
+If true, the branch pushed to the remote earlier will get deleted.
+
 #### grunt-bump options
 
 Additionally to all the available options listed above, all the [grunt-bump](https://github.com/vojtajina/grunt-bump) options are available to be configured when using this task.
@@ -148,6 +225,9 @@ grunt.initConfig({
       mergeToDevelopMsg: 'Merge into develop',
       mergeToMasterMsg: 'Merge into master',
       developVersionCommitMsg: 'Increased version for development',
+      startOnly: false,
+      finishOnly: false,
+      deleteRemoteBranch: false,
       // pushTo and tagName are overlapped properties, used by both sg_release and grunt-bump
       pushTo: 'upstream',
       tagName: 'v%VERSION%',
@@ -177,9 +257,11 @@ It is possible to specify a `releaseVersion` and `developVersion` on command lin
 grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
 ```
 
+## Creating a hotfix
+A hotfix follows the same flow as a release but it usually branches off the master branch. All you have to do is to first checkout the master branch, then call the sg_release task.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## License
 Copyright (c) 2014 SunGard. Licensed under the MIT license.
-

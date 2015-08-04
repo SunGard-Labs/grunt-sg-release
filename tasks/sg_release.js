@@ -41,7 +41,7 @@ module.exports = function (grunt) {
     }
 
     function createTempReleaseBranch() {
-      releaseBranchName = options.tempReleaseBranch + '/v' + grunt.option('setversion');
+      releaseBranchName = options.tempReleaseBranch + '/' + grunt.option('setversion');
       gitHelper.createBranch(grunt, process.cwd(), releaseBranchName, done);
     }
 
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     }
 
     function mergeFromTempReleaseBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, checkoutDevelop);
+      gitHelper.merge(grunt, process.cwd(), options.mergeOptions, releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, checkoutDevelop);
     }
 
     function checkoutDevelop() {
@@ -72,11 +72,15 @@ module.exports = function (grunt) {
     }
 
     function mergeIntoDevelopBranch() {
-      gitHelper.merge(grunt, process.cwd(), releaseBranchName, options.commitMessagePrefix, options.mergeToMasterMsg, deleteTempReleaseBranch);
+      gitHelper.merge(grunt, process.cwd(), options.mergeOptions, releaseBranchName, options.commitMessagePrefix, options.mergeToDevelopMsg, deleteTempReleaseBranch);
     }
 
     function deleteTempReleaseBranch() {
-      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, getNextVersion);
+      gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, options.deleteRemoteBranch === true ? deleteTempRemoteReleaseBranch : getNextVersion);
+    }
+
+    function deleteTempRemoteReleaseBranch() {
+      gitHelper.deleteRemoteBranch(grunt, process.cwd(), options.pushTo, releaseBranchName, getNextVersion);
     }
 
     function getNextVersion() {
@@ -127,7 +131,7 @@ module.exports = function (grunt) {
   // ---
 
 
-  grunt.registerTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
+  grunt.registerMultiTask('sg_release', 'The SunGard standard release script for HTML5 projects.', function () {
 
     options = this.options({
       skipBowerInstall: false,
@@ -139,9 +143,10 @@ module.exports = function (grunt) {
       mergeToDevelopMsg: messages.mergeToDevelopMsg,
       mergeToMasterMsg: messages.mergeToMasterMsg,
       developVersionCommitMsg: messages.developVersionCommitMsg,
-      tagName: 'v%VERSION%',
+      tagName: '%VERSION%',
       pushTo: 'upstream',
-      push: false // By default push should happen only at the end, during finish_sg_release subtask
+      push: false, // By default push should happen only at the end, during finish_sg_release subtask
+      mergeOptions: ''
     });
 
     extendGruntPlugin(grunt, require('grunt-bump'), {
@@ -149,13 +154,23 @@ module.exports = function (grunt) {
       'bump-only': options
     });
 
-    grunt.task.run('prepare_sg_release');
-    grunt.task.run('bump');
-    grunt.task.run('merge_sg_release');
-    grunt.task.run('bump-only');
-    grunt.task.run('finish_sg_release');
+    if (options.finishOnly !== true && options.finishOnly !== "true") {
+      grunt.task.run('prepare_sg_release');
+      grunt.task.run('bump');
+    }
 
+    if (options.finishOnly === true || options.finishOnly === "true") {
+      // get the version again since we cannot call prepare_sg_release here
+      version.getRelease(grunt, function () {
+        releaseBranchName = options.tempReleaseBranch + '/' + grunt.option('setversion');
+      });
+    }
+
+    if (options.startOnly !== true && options.startOnly !== "true") {
+      grunt.task.run('merge_sg_release');
+      grunt.task.run('bump-only');
+      grunt.task.run('finish_sg_release');
+    }
   });
 
 };
-
