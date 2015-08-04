@@ -78,7 +78,7 @@ module.exports = function (grunt) {
     function deleteTempReleaseBranch() {
       gitHelper.deleteBranch(grunt, process.cwd(), releaseBranchName, options.deleteRemoteBranch === true ? deleteTempRemoteReleaseBranch : getNextVersion);
     }
-    
+
     function deleteTempRemoteReleaseBranch() {
       gitHelper.deleteRemoteBranch(grunt, process.cwd(), options.pushTo, releaseBranchName, getNextVersion);
     }
@@ -158,7 +158,7 @@ module.exports = function (grunt) {
       grunt.task.run('prepare_sg_release');
       grunt.task.run('bump');
     }
-    
+
     if (options.finishOnly === true || options.finishOnly === "true") {
       // get the version again since we cannot call prepare_sg_release here
       version.getRelease(grunt, function () {
@@ -174,4 +174,3 @@ module.exports = function (grunt) {
   });
 
 };
-
