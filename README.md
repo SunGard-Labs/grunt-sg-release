@@ -251,10 +251,18 @@ grunt.initConfig({
 
 When running the task you will be prompted to enter the release version number. Additionally, you will also be prompted to enter a version number to be used on the **develop** branch.
 
-It is possible to specify a `releaseVersion` and `developVersion` on command line in order to skip these question and use the provided values when invoking the task. See the example below:
+It is possible to specify a `releaseVersion` and `developVersion` on command line in order to skip these question and use the provided values when invoking the task.
+
+See the example below when using `grunt@0.x.x`:
 
 ```shell
 grunt sg_release --releaseVersion 1.0.0 --developVersion 1.0.1-rc
+```
+
+See the example below when using `grunt@1.x.x`:
+
+```shell
+grunt sg_release --releaseVersion=1.0.0 --developVersion=1.0.1-rc
 ```
 
 ## Creating a hotfix
