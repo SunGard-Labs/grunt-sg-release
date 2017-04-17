@@ -1,5 +1,7 @@
 # grunt-sg-release
 
+[![Join the chat at https://gitter.im/SunGard-Labs/grunt-sg-release](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SunGard-Labs/grunt-sg-release?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 > The SunGard standard release script for HTML5 projects.
 
 version: 1.0.0
